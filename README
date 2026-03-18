@@ -1,16 +1,19 @@
-# Docker Compose Multi-Service Cheat Sheet
+este ca o biblioteca proprie
 
-## Services
-- **fastapi**: Python backend
-  - Model: `User` with `name` and `password` (Pydantic)
-- **spring**: Java Spring Boot backend
-- **db**: PostgreSQL database
+De facut in Python:
+de adaugat in baza de date userul dupa ce a venit
+de adaugat pentru ficare user o lista cu carti
+de iterat prin lista de carti si gasit ce carti au cel mai lung titlu, cel mai scurt nume de autor, ce care este ceea mai vechie/ceea mai nou, ce gen se intalneste cel mai des, ceea mai scumpa/ieftina carte
+de facut un endpoint pentru fiecare gen primeste un nume si parola si apoi iti da toate astea din categoria asta
 
----
 
-## Docker Compose Commands
+De facut in Java:
+de adaugat user cu nume si parola si sa ii facem validare
+de adaugat in baza de date userul dupa ce a venit
+de adaugat pentru ficare user o lista cu carti
+de iterat prin lista de carti si gasit ce carti au cel mai lung titlu, cel mai scurt nume de autor, ce care este ceea mai vechie/ceea mai nou, ce gen se intalneste cel mai des
+de facut un endpoint pentru fiecare gen primeste un nume si parola si apoi iti da toate astea din categoria asta
 
-Start all services:
 
-```bash
-docker-compose up --build
+class book:
+    title,author,year,pages,genra,price
