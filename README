@@ -1,0 +1,16 @@
+# Docker Compose Multi-Service Cheat Sheet
+
+## Services
+- **fastapi**: Python backend
+  - Model: `User` with `name` and `password` (Pydantic)
+- **spring**: Java Spring Boot backend
+- **db**: PostgreSQL database
+
+---
+
+## Docker Compose Commands
+
+Start all services:
+
+```bash
+docker-compose up --build
