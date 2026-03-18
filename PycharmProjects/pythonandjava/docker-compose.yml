@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  javanadpythondb:
+    image: postgres:15
+    container_name: javanadpythondb
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  spring:
+    build: ./java
+    container_name: spring_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - javanadpythondb
+
+  javafastapi:
+    build: ./python
+    container_name: javafastapi
+    depends_on:
+      - javanadpythondb
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/mydb
+
+  debug:
+    image: alpine:latest
+    container_name: debug
+    command: sh -c "apk add --no-cache curl iputils && sleep infinity"
+
+volumes:
+  pgdata:
+
+networks:
+  javapython:
