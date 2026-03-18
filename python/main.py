@@ -13,4 +13,4 @@ def read_root():
 def add_user(user: User):
     print(user.name)
     print(user.password)
-    return {"result": "bau"}
+    return {"result": "cartoful magic este aici"}
