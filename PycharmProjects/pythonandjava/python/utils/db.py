@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://user:password@postgres:5432/mydb"
+DATABASE_URL = "postgresql://user:password@javanadpythondb:5432/mydb"
 
 engine = create_engine(DATABASE_URL)
 
@@ -21,3 +21,11 @@ class UserDB(Base):
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
