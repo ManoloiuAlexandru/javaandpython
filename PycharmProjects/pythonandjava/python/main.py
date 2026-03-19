@@ -7,7 +7,7 @@ app = FastAPI()
 
 
 @app.get("/")
-def read_root():
+def home():
     return {"message": "Welcome to Personal Library"}
 
 
