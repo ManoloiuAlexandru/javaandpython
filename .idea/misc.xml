@@ -3,5 +3,20 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.14" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12" project-jdk-type="Python SDK" />
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$USER_HOME$/IdeaProjects/springbootserver/pom.xml" />
+        <option value="$PROJECT_DIR$/javapython/pom.xml" />
+        <option value="$PROJECT_DIR$/PycharmProjects/pythonandjava/java/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/javapython/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="22" project-jdk-type="JavaSDK" />
 </project>

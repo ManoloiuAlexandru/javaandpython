@@ -1,4 +1,4 @@
-package com.example.demo.classes;
+package src.main.java.com.example.demo.classes;
 
 import jakarta.persistence.*;
 import lombok.Data;

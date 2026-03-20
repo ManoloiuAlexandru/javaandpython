@@ -1,10 +1,10 @@
-package com.example.demo;
-import com.example.demo.classes.UserDB;
-import com.example.demo.repository.UserRepository;
+package src.main.java.com.example.demo;
+import src.main.java.com.example.demo.classes.UserDB;
+import src.main.java.com.example.demo.repository.UserRepository;
 
 import java.util.List;
 import java.util.Map;
-import com.example.demo.classes.User;
+import src.main.java.com.example.demo.classes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
