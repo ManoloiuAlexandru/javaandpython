@@ -1,0 +1,31 @@
+package src.main.java.com.example.demo.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+import src.main.java.com.example.demo.services.UserServices;
+import src.main.java.com.example.demo.classes.UserDB;
+import src.main.java.com.example.demo.classes.User;
+
+@RestController
+public class UserController {
+
+    @Autowired
+    private UserServices userService;
+
+    @PostMapping("/add_user")
+    public Map<String, String> addUser(@RequestBody User user) {
+        return Map.of("message", userService.addUser(user));
+    }
+
+    @GetMapping("/users")
+    public List<UserDB> getAllUsers() {
+        return userService.getAllUsers();
+    }
+}
