@@ -1,11 +1,5 @@
 este ca o biblioteca proprie
 
-De facut in Python:
-de adaugat pentru ficare user o lista cu carti
-de iterat prin lista de carti si gasit ce carti au cel mai lung titlu, cel mai scurt nume de autor, ce care este ceea mai vechie/ceea mai nou, ce gen se intalneste cel mai des, ceea mai scumpa/ieftina carte
-de facut un endpoint pentru fiecare gen primeste un nume si parola si apoi iti da toate astea din categoria asta
-
-
 De facut in Java:
 de adaugat pentru ficare user o lista cu carti
 de iterat prin lista de carti si gasit ce carti au cel mai lung titlu, cel mai scurt nume de autor, ce care este ceea mai vechie/ceea mai nou, ce gen se intalneste cel mai des
@@ -22,4 +16,15 @@ class book:
 
 class card:
      card number,name, exp date and cvv debit/credit
+     if credit: limit, balance
+
+class user:
+    nume, parola, books, favoritebooks, cards, bankaccounts
+
+class transaction:
+    ammount, type and date
+
+class BankAccount:
+    ammount, bank linked to card if card is debit just take from ammont
+    if card is credit ammount can get negativ but not more then a limit 
 
