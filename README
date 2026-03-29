@@ -10,7 +10,16 @@ De facut in Java:
 de adaugat pentru ficare user o lista cu carti
 de iterat prin lista de carti si gasit ce carti au cel mai lung titlu, cel mai scurt nume de autor, ce care este ceea mai vechie/ceea mai nou, ce gen se intalneste cel mai des
 de facut un endpoint pentru fiecare gen primeste un nume si parola si apoi iti da toate astea din categoria asta
+de adăugat carduri de platit
+de adăugat ce autor a scris cele mai multe carti
+de adăugat la carte nr de copii vândute 
+de facut cine carte este ceea mai cumpărată
+de facut o plata cu cardul
 
 
 class book:
     title,author,year,pages,genre,price
+
+class card:
+     card number,name, exp date and cvv
+
