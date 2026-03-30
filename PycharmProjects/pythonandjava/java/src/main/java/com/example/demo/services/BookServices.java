@@ -7,7 +7,9 @@ import src.main.java.com.example.demo.classes.Book;
 import src.main.java.com.example.demo.repository.BookRepository;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookServices {
@@ -23,6 +25,7 @@ public class BookServices {
         bookDB.setPages(book.getPages());
         bookDB.setGenre(book.getGenre());
         bookDB.setPrice(book.getPrice());
+        bookDB.setSold(book.getSold());
         bookRepository.save(bookDB);
         return "Book added";
     }
@@ -36,10 +39,79 @@ public class BookServices {
 //                maxPrice = book.getPrice();
 //            }
 //        }
-        List<BookDB> library=bookRepository.findAll();
+//        return bookExp;
+        List<BookDB> library = bookRepository.findAll();
         return library.stream().max(Comparator.comparingDouble(BookDB::getPrice)).orElse(null);
     }
 
+    public BookDB getCheap() {
+//        double minPrice = 999;
+//        BookDB bookChp = null;
+//        for (BookDB book : bookRepository.findAll()) {
+//            if (book.getPrice() < minPrice) {
+//                bookChp = book;
+//                minPrice = book.getPrice();
+//            }
+//        }
+//        return bookChp;
+        List<BookDB> library = bookRepository.findAll();
+        return library.stream().min(Comparator.comparingDouble(BookDB::getPrice)).orElse(null);
+    }
+
+    public BookDB getLongest() {
+        double longestPg = 0;
+        BookDB bookLongest = null;
+        for (BookDB book : bookRepository.findAll()) {
+            if (book.getPages() > longestPg) {
+                bookLongest = book;
+                longestPg = book.getPages();
+            }
+        }
+        return bookLongest;
+//        List<BookDB> library = bookRepository.findAll();
+//        return library.stream().min(Comparator.comparingDouble(BookDB::getPrice)).orElse(null);
+    }
+
+    public BookDB getOldest() {
+//        int oldest=2026;
+//        BookDB oldBook=null;
+//        for (BookDB book:bookRepository.findAll())
+//        {
+//            if (book.getYear()<oldest){
+//                oldBook=book;
+//                oldest=book.getYear();
+//            }
+//        }
+//        return oldBook;
+        return bookRepository.findAll().stream().min(Comparator.comparingDouble(BookDB::getYear)).orElse(null);
+    }
+
+    public BookDB getNewest() {
+        return bookRepository.findAll().stream().max(Comparator.comparingDouble(BookDB::getYear)).orElse(null);
+    }
+
+    public Map<String, Integer> getMostGenre() {
+        Map<String, Integer> genreApparition = new HashMap<>();
+
+//        for (BookDB book : bookRepository.findAll()) {
+//            if (genreApparition.containsKey(book.getGenre())) {
+//                genreApparition.put(book.getGenre(), genreApparition.get(book.getGenre()) + 1);
+//            } else {
+//                genreApparition.put(book.getGenre(), 1);
+//            }
+//        }
+
+        for (BookDB book : bookRepository.findAll()) {
+            String genre = book.getGenre();
+            genreApparition.put(genre, genreApparition.getOrDefault(genre, 0) + 1);
+        }
+
+        return genreApparition;
+    }
+
+    public BookDB getMostSold(){
+        return bookRepository.findAll().stream().max(Comparator.comparingInt(BookDB::getSold)).orElse(null);
+    }
     public String addLibrary(List<Book> library) {
         for (Book book : library) {
             addBook(book);

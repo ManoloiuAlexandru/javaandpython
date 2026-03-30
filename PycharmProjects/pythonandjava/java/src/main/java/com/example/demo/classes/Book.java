@@ -10,4 +10,5 @@ public class Book {
     private int pages;
     private String genre;
     private double price;
+    private int sold;
 }

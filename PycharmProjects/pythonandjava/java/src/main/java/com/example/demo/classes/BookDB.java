@@ -28,4 +28,7 @@ public class BookDB {
 
     @Column(nullable = false)
     private double price;
+
+    @Column(nullable = false)
+    private int sold;
 }
