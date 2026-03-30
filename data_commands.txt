@@ -113,7 +113,7 @@ curl -X POST http://spring:5002/buy_book \
 -H "Content-Type: application/json" \
 -d '{
   "book": {
-    "title": "Clean de",
+    "title": "Clean Code",
     "author": "Robert C. Martin",
     "year": 2008,
     "pages": 464,
@@ -124,3 +124,187 @@ curl -X POST http://spring:5002/buy_book \
 }'
 
 curl -X POST "http://spring:5002/find_book?title=Clean%20Code"
+
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "darius", "password": "darius123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "vlad", "password": "vlad123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "andrei", "password": "andrei123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "alex", "password": "alex123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "rares", "password": "rares123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "alexandra", "password": "alexandra123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "mihai-alexandru", "password": "mihai123"}'
+
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "armin", "password": "armin123"}'
+
+
+# alex buys Clean Code
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "year": 2008,
+    "pages": 464,
+    "genre": "Programming",
+    "price": 34.99
+  },
+  "username": "alex"
+}'
+
+# darius buys Atomic Habits
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "year": 2018,
+    "pages": 320,
+    "genre": "Self-Help",
+    "price": 24.99
+  },
+  "username": "darius"
+}'
+
+# vlad buys Sapiens
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "year": 2011,
+    "pages": 443,
+    "genre": "History",
+    "price": 22.99
+  },
+  "username": "vlad"
+}'
+
+# andrei buys The Pragmatic Programmer
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "year": 1999,
+    "pages": 352,
+    "genre": "Programming",
+    "price": 39.99
+  },
+  "username": "andrei"
+}'
+
+# alexandra buys Deep Work
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "year": 2016,
+    "pages": 304,
+    "genre": "Productivity",
+    "price": 26.99
+  },
+  "username": "alexandra"
+}'
+
+# rares buys Design Patterns
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Design Patterns",
+    "author": "Erich Gamma",
+    "year": 1994,
+    "pages": 395,
+    "genre": "Programming",
+    "price": 49.99
+  },
+  "username": "rares"
+}'
+
+# mihai-alexandru buys Effective Java
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "year": 2018,
+    "pages": 416,
+    "genre": "Programming",
+    "price": 45.00
+  },
+  "username": "mihai-alexandru"
+}'
+
+# armin buys The Lean Startup
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "year": 2011,
+    "pages": 336,
+    "genre": "Business",
+    "price": 27.99
+  },
+  "username": "armin"
+}'
+
+# alex buys another book
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "You Dont Know JS",
+    "author": "Kyle Simpson",
+    "year": 2015,
+    "pages": 278,
+    "genre": "Programming",
+    "price": 29.99
+  },
+  "username": "alex"
+}'
+
+# darius buys another book
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "year": 2009,
+    "pages": 1312,
+    "genre": "Computer Science",
+    "price": 89.99
+  },
+  "username": "darius"
+}'
