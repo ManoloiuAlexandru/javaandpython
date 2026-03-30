@@ -1,0 +1,126 @@
+curl -X POST http://spring:5002/add_user \
+-H "Content-Type: application/json" \
+-d '{"name": "alex", "password": "secret"}'
+
+curl -X GET http://spring:5002/users
+
+curl -X GET http://spring:5002/books
+curl -X GET http://spring:5002/get_most_expensive
+curl -X GET http://spring:5002/get_most_cheap
+curl -X GET http://spring:5002/get_longest_book
+curl -X GET http://spring:5002/get_oldest
+curl -X GET http://spring:5002/get_newest
+curl -X GET http://spring:5002/get_genres
+curl -X GET http://spring:5002/get_most_sold
+
+curl -X POST http://spring:5002/add_library \
+-H "Content-Type: application/json" \
+-d '[
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "year": 2008,
+    "pages": 464,
+    "genre": "Programming",
+    "price": 34.99,
+    "sold": 500000
+  },
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "year": 1999,
+    "pages": 352,
+    "genre": "Programming",
+    "price": 39.99,
+    "sold": 300000
+  },
+  {
+    "title": "Design Patterns",
+    "author": "Erich Gamma",
+    "year": 1994,
+    "pages": 395,
+    "genre": "Programming",
+    "price": 49.99,
+    "sold": 1000000
+  },
+  {
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "year": 2009,
+    "pages": 1312,
+    "genre": "Computer Science",
+    "price": 89.99,
+    "sold": 700000
+  },
+  {
+    "title": "Effective Java",
+    "author": "Joshua Bloch",
+    "year": 2018,
+    "pages": 416,
+    "genre": "Programming",
+    "price": 45.00,
+    "sold": 400000
+  },
+  {
+    "title": "You Dont Know JS",
+    "author": "Kyle Simpson",
+    "year": 2015,
+    "pages": 278,
+    "genre": "Programming",
+    "price": 29.99,
+    "sold": 250000
+  },
+  {
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "year": 2018,
+    "pages": 320,
+    "genre": "Self-Help",
+    "price": 24.99,
+    "sold": 15000000
+  },
+  {
+    "title": "Sapiens",
+    "author": "Yuval Noah Harari",
+    "year": 2011,
+    "pages": 443,
+    "genre": "History",
+    "price": 22.99,
+    "sold": 20000000
+  },
+  {
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "year": 2011,
+    "pages": 336,
+    "genre": "Business",
+    "price": 27.99,
+    "sold": 1000000
+  },
+  {
+    "title": "Deep Work",
+    "author": "Cal Newport",
+    "year": 2016,
+    "pages": 304,
+    "genre": "Productivity",
+    "price": 26.99,
+    "sold": 2000000
+  }
+]'
+
+
+curl -X POST http://spring:5002/buy_book \
+-H "Content-Type: application/json" \
+-d '{
+  "book": {
+    "title": "Clean de",
+    "author": "Robert C. Martin",
+    "year": 2008,
+    "pages": 464,
+    "genre": "Programming",
+    "price": 34.99
+  },
+  "username": "alex"
+}'
+
+curl -X POST "http://spring:5002/find_book?title=Clean%20Code"
