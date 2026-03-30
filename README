@@ -12,7 +12,7 @@ de facut o plata cu cardul
 
 
 class book:
-    title,author,year,pages,genre,price
+    title,author,year,pages,genre,price,soldbooks
 
 class card:
      card number,name, exp date and cvv debit/credit
