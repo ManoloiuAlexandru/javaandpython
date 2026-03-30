@@ -122,4 +122,8 @@ public class BookServices {
     public List<BookDB> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    public BookDB findBook(String title){
+        return bookRepository.findByTitle(title);
+    }
 }

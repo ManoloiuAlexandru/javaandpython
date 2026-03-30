@@ -1,13 +1,10 @@
 package src.main.java.com.example.demo.controllers;
 
+import org.springframework.web.bind.annotation.*;
 import src.main.java.com.example.demo.classes.Book;
 import src.main.java.com.example.demo.classes.BookDB;
 import src.main.java.com.example.demo.services.BookServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -64,7 +61,12 @@ public class BookController {
     }
 
     @GetMapping("/get_most_sold")
-    public BookDB getMostSold(){
+    public BookDB getMostSold() {
         return bookServices.getMostSold();
+    }
+
+    @PostMapping("/find_book")
+    public BookDB getBook(@RequestParam String title) {
+        return bookServices.findBook(title);
     }
 }

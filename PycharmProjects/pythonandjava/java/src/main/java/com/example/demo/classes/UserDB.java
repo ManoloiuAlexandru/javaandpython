@@ -1,7 +1,10 @@
 package src.main.java.com.example.demo.classes;
 
+import src.main.java.com.example.demo.classes.BookDB;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -17,4 +20,8 @@ public class UserDB {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany
+    @JoinColumn(name = "id_book")
+    private List<BookDB> books;
 }

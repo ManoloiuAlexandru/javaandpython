@@ -1,5 +1,7 @@
 package src.main.java.com.example.demo.classes;
 
+import src.main.java.com.example.demo.classes.UserDB;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,4 +33,8 @@ public class BookDB {
 
     @Column(nullable = false)
     private int sold;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private UserDB userDB;
 }
