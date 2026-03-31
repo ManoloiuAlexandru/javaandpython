@@ -1,5 +1,6 @@
 package src.main.java.com.example.demo.classes;
 
+import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.classes.BookDB;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,4 +25,9 @@ public class UserDB {
     @OneToMany
     @JoinColumn(name = "id_book")
     private List<BookDB> books;
+
+    @OneToMany
+    @JoinColumn(name= "id_bank_account")
+    private List<BankAccountDB> bankAccounts;
+
 }

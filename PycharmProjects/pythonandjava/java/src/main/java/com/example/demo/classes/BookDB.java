@@ -34,7 +34,4 @@ public class BookDB {
     @Column(nullable = false)
     private int sold;
 
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    private UserDB userDB;
 }
