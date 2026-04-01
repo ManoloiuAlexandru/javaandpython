@@ -1,10 +1,7 @@
 package src.main.java.com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +30,11 @@ public class UserController {
     @PostMapping("/buy_book")
     public String buyBook(@RequestBody BuyBookRequest request) {
         return userService.buyBook(request.getBook(), request.getUsername());
+    }
+
+    @GetMapping("/get_user")
+    public UserDB getUserByName(@RequestParam String name) {
+        return userService.getUser(name);
     }
 
 }

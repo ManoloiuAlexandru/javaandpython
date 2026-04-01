@@ -54,4 +54,8 @@ public class UserServices {
         }
         return "Book not found";
     }
+
+    public UserDB getUser(String name){
+        return userRepository.getByName(name);
+    }
 }
