@@ -308,3 +308,15 @@ curl -X POST http://spring:5002/buy_book \
   },
   "username": "darius"
 }'
+
+curl -X POST http://localhost:8080/add_bank_account \
+  -H "Content-Type: application/json" \
+  -d '{
+    "bankAccount": {
+      "iban": "RO49AAAA1234123456789012",
+      "amount": 1500.50,
+      "bankName": "BCR",
+      "limit": 1000.00
+    },
+    "token": "alex"
+  }'
