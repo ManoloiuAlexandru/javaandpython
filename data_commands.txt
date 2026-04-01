@@ -2,17 +2,6 @@ curl -X POST http://spring:5002/add_user \
 -H "Content-Type: application/json" \
 -d '{"name": "alex", "password": "secret"}'
 
-curl -X GET http://spring:5002/users
-
-curl -X GET http://spring:5002/books
-curl -X GET http://spring:5002/get_most_expensive
-curl -X GET http://spring:5002/get_most_cheap
-curl -X GET http://spring:5002/get_longest_book
-curl -X GET http://spring:5002/get_oldest
-curl -X GET http://spring:5002/get_newest
-curl -X GET http://spring:5002/get_genres
-curl -X GET http://spring:5002/get_most_sold
-
 curl -X POST http://spring:5002/add_library \
 -H "Content-Type: application/json" \
 -d '[
@@ -308,3 +297,26 @@ curl -X POST http://spring:5002/buy_book \
   },
   "username": "darius"
 }'
+
+curl -X GET http://spring:5002/users
+
+curl -X GET http://spring:5002/books
+curl -X GET http://spring:5002/get_most_expensive
+curl -X GET http://spring:5002/get_most_cheap
+curl -X GET http://spring:5002/get_longest_book
+curl -X GET http://spring:5002/get_oldest
+curl -X GET http://spring:5002/get_newest
+curl -X GET http://spring:5002/get_genres
+curl -X GET http://spring:5002/get_most_sold
+
+curl -X POST http://spring:5002/add_bank_account \
+  -H "Content-Type: application/json" \
+  -d '{
+    "bankAccount": {
+      "iban": "RO49AAAA1234123456789012",
+      "amount": 1500.50,
+      "bankName": "BCR",
+      "accountLimit": 1000.00
+    },
+    "token": "alex"
+  }'
