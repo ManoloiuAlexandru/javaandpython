@@ -320,3 +320,15 @@ curl -X POST http://spring:5002/add_bank_account \
     },
     "token": "alex"
   }'
+
+curl -X POST http://spring:5002/add_card \
+  -H "Content-Type: application/json" \
+  -d '{
+        "card": {
+            "cardNumber": "1234567890123456",
+            "type": "debit",
+            "name": "alex",
+            "cvv": 123
+        },
+        "token": "RO49AAAA1234123456789012"
+      }'
