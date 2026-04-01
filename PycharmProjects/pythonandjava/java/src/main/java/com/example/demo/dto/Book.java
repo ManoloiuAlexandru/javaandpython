@@ -1,4 +1,4 @@
-package src.main.java.com.example.demo.classes;
+package com.example.demo.dto;
 
 import lombok.Data;
 

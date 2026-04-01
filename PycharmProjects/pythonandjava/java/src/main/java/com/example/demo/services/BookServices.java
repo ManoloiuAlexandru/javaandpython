@@ -3,7 +3,7 @@ package src.main.java.com.example.demo.services;
 import src.main.java.com.example.demo.classes.BookDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.classes.Book;
+import com.example.demo.dto.Book;
 import src.main.java.com.example.demo.repository.BookRepository;
 
 import java.util.Comparator;

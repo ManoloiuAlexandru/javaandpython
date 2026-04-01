@@ -1,6 +1,5 @@
-package src.main.java.com.example.demo.dto;
+package com.example.demo.dto;
 
-import src.main.java.com.example.demo.classes.Book;
 import lombok.Data;
 
 @Data

@@ -1,7 +1,6 @@
-package src.main.java.com.example.demo.dto;
+package com.example.demo.dto;
 
 import lombok.Data;
-import src.main.java.com.example.demo.classes.Card;
 
 @Data
 public class CardRequest {

@@ -1,7 +1,7 @@
 package src.main.java.com.example.demo.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import src.main.java.com.example.demo.classes.Book;
+import com.example.demo.dto.Book;
 import src.main.java.com.example.demo.classes.BookDB;
 import src.main.java.com.example.demo.services.BookServices;
 import org.springframework.beans.factory.annotation.Autowired;

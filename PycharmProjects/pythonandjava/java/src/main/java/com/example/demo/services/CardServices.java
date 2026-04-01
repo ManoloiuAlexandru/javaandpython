@@ -2,7 +2,7 @@ package src.main.java.com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.classes.Card;
+import com.example.demo.dto.Card;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.repository.BankAccountRepository;
 import src.main.java.com.example.demo.classes.CardDB;

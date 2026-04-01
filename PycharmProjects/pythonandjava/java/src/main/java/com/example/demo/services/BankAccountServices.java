@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.classes.UserDB;
-import src.main.java.com.example.demo.classes.BankAccount;
+import com.example.demo.dto.BankAccount;
 
 @Service
 public class BankAccountServices {

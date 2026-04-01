@@ -1,6 +1,6 @@
 package src.main.java.com.example.demo.controllers;
 
-import src.main.java.com.example.demo.dto.BankAccountRequest;
+import com.example.demo.dto.BankAccountRequest;
 import src.main.java.com.example.demo.services.BankAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

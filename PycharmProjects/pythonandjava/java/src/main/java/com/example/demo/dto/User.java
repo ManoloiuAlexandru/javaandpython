@@ -1,5 +1,4 @@
-package src.main.java.com.example.demo.classes;
-import src.main.java.com.example.demo.classes.Book;
+package com.example.demo.dto;
 import lombok.Data;
 
 

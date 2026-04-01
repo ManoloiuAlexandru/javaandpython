@@ -2,10 +2,10 @@ package src.main.java.com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.classes.User;
+import com.example.demo.dto.User;
 import src.main.java.com.example.demo.classes.UserDB;
 import src.main.java.com.example.demo.repository.UserRepository;
-import src.main.java.com.example.demo.classes.Book;
+import com.example.demo.dto.Book;
 import src.main.java.com.example.demo.repository.BookRepository;
 import src.main.java.com.example.demo.classes.BookDB;
 
