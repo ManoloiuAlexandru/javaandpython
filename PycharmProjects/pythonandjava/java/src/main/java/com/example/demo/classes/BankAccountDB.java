@@ -21,6 +21,6 @@ public class BankAccountDB {
     private String bankName;
 
     @Column(unique = true, nullable = false)
-    private Double limit;
+    private Double accountLimit;
 
 }

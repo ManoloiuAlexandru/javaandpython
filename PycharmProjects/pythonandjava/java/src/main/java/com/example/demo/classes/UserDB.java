@@ -26,7 +26,7 @@ public class UserDB {
     @JoinColumn(name = "id_book")
     private List<BookDB> books;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name= "id_bank_account")
     private List<BankAccountDB> bankAccounts;
 

@@ -2,28 +2,30 @@ package src.main.java.com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.services.UserServices;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.classes.UserDB;
 import src.main.java.com.example.demo.classes.BankAccount;
+import src.main.java.com.example.demo.repository.BankAccountRepository;
 
 @Service
 public class BankAccountServices {
 
     @Autowired
-    private UserServices userServices;
+    private src.main.java.com.example.demo.repository.UserRepository userRepository;
 
-    public String addBankAccount(BankAccount bankAccount, String token){
-        BankAccountDB bankAccountDB=new BankAccountDB();
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
+
+    public String addBankAccount(BankAccount bankAccount, String token) {
+        BankAccountDB bankAccountDB = new BankAccountDB();
         bankAccountDB.setBankName(bankAccount.getBankName());
         bankAccountDB.setIban(bankAccount.getIban());
         bankAccountDB.setAmount(bankAccount.getAmount());
-        bankAccountDB.setLimit(bankAccount.getLimit());
-
-        for (UserDB user:userServices.getAllUsers())
-        {
-            if (user.getName().equals(token)){
+        bankAccountDB.setAccountLimit(bankAccount.getAccountLimit());
+        for (UserDB user : userRepository.findAll()) {
+            if (user.getName().equals(token)) {
                 user.getBankAccounts().add(bankAccountDB);
+                userRepository.save(user);
             }
         }
         return "Success";

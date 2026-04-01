@@ -8,5 +8,5 @@ public class BankAccount {
     private String iban;
     private Double amount;
     private String bankName;
-    private Double limit;
+    private Double accountLimit;
 }
