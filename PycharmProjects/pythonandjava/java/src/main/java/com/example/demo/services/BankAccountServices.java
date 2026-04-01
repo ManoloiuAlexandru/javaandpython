@@ -5,16 +5,12 @@ import org.springframework.stereotype.Service;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.classes.UserDB;
 import src.main.java.com.example.demo.classes.BankAccount;
-import src.main.java.com.example.demo.repository.BankAccountRepository;
 
 @Service
 public class BankAccountServices {
 
     @Autowired
     private src.main.java.com.example.demo.repository.UserRepository userRepository;
-
-    @Autowired
-    private BankAccountRepository bankAccountRepository;
 
     public String addBankAccount(BankAccount bankAccount, String token) {
         BankAccountDB bankAccountDB = new BankAccountDB();

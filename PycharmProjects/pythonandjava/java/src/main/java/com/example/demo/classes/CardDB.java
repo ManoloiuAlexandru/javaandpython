@@ -1,6 +1,6 @@
-package com.example.demo.classes;
+package src.main.java.com.example.demo.classes;
 
-import src.main.java.com.example.demo.classes.UserDB;
+import src.main.java.com.example.demo.classes.BankAccountDB;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,8 +22,11 @@ public class CardDB {
     @Column(nullable = false)
     private int cvv;
 
-    @ManyToOne
-    @JoinColumn(name = "user_name")
-    private UserDB user;
+    @Column(nullable = false)
+    private String name;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bank_account")
+    private BankAccountDB bankAccount;
 
 }

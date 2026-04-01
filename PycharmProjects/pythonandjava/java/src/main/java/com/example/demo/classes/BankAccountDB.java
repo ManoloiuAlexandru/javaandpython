@@ -1,7 +1,10 @@
 package src.main.java.com.example.demo.classes;
 
 import jakarta.persistence.*;
+import src.main.java.com.example.demo.classes.CardDB;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -23,4 +26,7 @@ public class BankAccountDB {
     @Column(unique = true, nullable = false)
     private Double accountLimit;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="card_number_account")
+    private List<CardDB> cardDB;
 }
