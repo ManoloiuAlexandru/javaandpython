@@ -98,20 +98,17 @@ curl -X POST http://spring:5002/add_library \
 ]'
 
 
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Clean Code",
-    "author": "Robert C. Martin",
-    "year": 2008,
-    "pages": 464,
-    "genre": "Programming",
-    "price": 34.99
-  },
-  "username": "alex"
+  "username": "alex",
+  "books": [
+    {
+      "bookId": 1,
+      "quantity": 2
+    }
+  ]
 }'
-
 curl -X POST "http://spring:5002/find_book?title=Clean%20Code"
 
 
@@ -149,178 +146,130 @@ curl -X POST http://spring:5002/add_user \
 
 
 # alex buys Clean Code
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Clean Code",
-    "author": "Robert C. Martin",
-    "year": 2008,
-    "pages": 464,
-    "genre": "Programming",
-    "price": 34.99
-  },
-  "username": "alex"
+  "username": "alex",
+  "books": [
+    { "bookId": 1, "quantity": 1 }
+  ]
 }'
 
 # darius buys Atomic Habits
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Atomic Habits",
-    "author": "James Clear",
-    "year": 2018,
-    "pages": 320,
-    "genre": "Self-Help",
-    "price": 24.99
-  },
-  "username": "darius"
+  "username": "darius",
+  "books": [
+    { "bookId": 2, "quantity": 1 }
+  ]
 }'
 
 # vlad buys Sapiens
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Sapiens",
-    "author": "Yuval Noah Harari",
-    "year": 2011,
-    "pages": 443,
-    "genre": "History",
-    "price": 22.99
-  },
-  "username": "vlad"
+  "username": "vlad",
+  "books": [
+    { "bookId": 3, "quantity": 1 }
+  ]
 }'
 
 # andrei buys The Pragmatic Programmer
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "The Pragmatic Programmer",
-    "author": "Andrew Hunt",
-    "year": 1999,
-    "pages": 352,
-    "genre": "Programming",
-    "price": 39.99
-  },
-  "username": "andrei"
+  "username": "andrei",
+  "books": [
+    { "bookId": 4, "quantity": 1 }
+  ]
 }'
 
 # alexandra buys Deep Work
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Deep Work",
-    "author": "Cal Newport",
-    "year": 2016,
-    "pages": 304,
-    "genre": "Productivity",
-    "price": 26.99
-  },
-  "username": "alexandra"
+  "username": "alexandra",
+  "books": [
+    { "bookId": 5, "quantity": 1 }
+  ]
 }'
 
 # rares buys Design Patterns
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Design Patterns",
-    "author": "Erich Gamma",
-    "year": 1994,
-    "pages": 395,
-    "genre": "Programming",
-    "price": 49.99
-  },
-  "username": "rares"
+  "username": "rares",
+  "books": [
+    { "bookId": 6, "quantity": 1 }
+  ]
 }'
 
 # mihai-alexandru buys Effective Java
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Effective Java",
-    "author": "Joshua Bloch",
-    "year": 2018,
-    "pages": 416,
-    "genre": "Programming",
-    "price": 45.00
-  },
-  "username": "mihai-alexandru"
+  "username": "mihai-alexandru",
+  "books": [
+    { "bookId": 7, "quantity": 1 }
+  ]
 }'
 
 # armin buys The Lean Startup
-curl -X POST http://spring:5002/buy_book \
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "The Lean Startup",
-    "author": "Eric Ries",
-    "year": 2011,
-    "pages": 336,
-    "genre": "Business",
-    "price": 27.99
-  },
-  "username": "armin"
+  "username": "armin",
+  "books": [
+    { "bookId": 8, "quantity": 1 }
+  ]
 }'
 
-# alex buys another book
-curl -X POST http://spring:5002/buy_book \
+# alex buys You Don’t Know JS
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "You Dont Know JS",
-    "author": "Kyle Simpson",
-    "year": 2015,
-    "pages": 278,
-    "genre": "Programming",
-    "price": 29.99
-  },
-  "username": "alex"
+  "username": "alex",
+  "books": [
+    { "bookId": 9, "quantity": 1 }
+  ]
 }'
 
-# darius buys another book
-curl -X POST http://spring:5002/buy_book \
+# darius buys Introduction to Algorithms
+curl -X POST http://spring:5002/buy_books \
 -H "Content-Type: application/json" \
 -d '{
-  "book": {
-    "title": "Introduction to Algorithms",
-    "author": "Thomas H. Cormen",
-    "year": 2009,
-    "pages": 1312,
-    "genre": "Computer Science",
-    "price": 89.99
-  },
-  "username": "darius"
+  "username": "darius",
+  "books": [
+    { "bookId": 10, "quantity": 1 }
+  ]
 }'
 
+# add bank account
 curl -X POST http://spring:5002/add_bank_account \
-  -H "Content-Type: application/json" \
-  -d '{
-    "bankAccount": {
-      "iban": "RO49AAAA1234123456789012",
-      "amount": 1500.50,
-      "bankName": "BCR",
-      "accountLimit": 1000.00
-    },
-    "token": "alex"
-  }'
+-H "Content-Type: application/json" \
+-d '{
+  "bankAccount": {
+    "iban": "RO49AAAA1234123456789012",
+    "amount": 1500.50,
+    "bankName": "BCR",
+    "accountLimit": 1000.00
+  },
+  "token": "alex"
+}'
 
+# add card
 curl -X POST http://spring:5002/add_card \
-  -H "Content-Type: application/json" \
-  -d '{
-        "card": {
-            "cardNumber": "1234567890123456",
-            "type": "debit",
-            "name": "alex",
-            "cvv": 123
-        },
-        "token": "RO49AAAA1234123456789012"
-      }'
+-H "Content-Type: application/json" \
+-d '{
+  "card": {
+    "cardNumber": "1234567890123456",
+    "type": "debit",
+    "name": "alex",
+    "cvv": 123
+  },
+  "token": "RO49AAAA1234123456789012"
+}'
 
 curl -X GET http://spring:5002/users
 
