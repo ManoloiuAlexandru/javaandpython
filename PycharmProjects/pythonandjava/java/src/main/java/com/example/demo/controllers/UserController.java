@@ -9,7 +9,7 @@ import java.util.Map;
 import src.main.java.com.example.demo.services.UserServices;
 import src.main.java.com.example.demo.classes.UserDB;
 import com.example.demo.dto.User;
-import com.example.demo.dto.BuyBookRequest;
+import com.example.demo.request.BuyBookRequest;
 
 @RestController
 public class UserController {

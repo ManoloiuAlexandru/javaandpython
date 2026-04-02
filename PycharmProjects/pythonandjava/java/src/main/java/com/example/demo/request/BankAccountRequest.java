@@ -1,5 +1,6 @@
-package com.example.demo.dto;
+package com.example.demo.request;
 
+import com.example.demo.dto.BankAccount;
 import lombok.Data;
 
 @Data
