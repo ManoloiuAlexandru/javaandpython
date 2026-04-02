@@ -277,6 +277,7 @@ curl -X POST http://spring:5002/create_order \
 -H "Content-Type: application/json" \
 -d '{
   "username": "alex",
+  "total": 120.0,
   "books": [
     {"bookId": 1, "quantity": 2}
   ]
