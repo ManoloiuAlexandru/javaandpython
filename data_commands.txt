@@ -273,6 +273,23 @@ curl -X POST http://spring:5002/add_card \
 
 curl -X GET http://spring:5002/users
 
+curl -X POST http://spring:5002/create_order \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "alex",
+  "books": [
+    {"bookId": 1, "quantity": 2}
+  ]
+}'
+
+curl -X POST http://spring:5002/pay \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "alex",
+  "orderId": 1,
+  "cardId": 1
+}'
+
 curl -X GET http://spring:5002/books
 curl -X GET http://spring:5002/get_most_expensive
 curl -X GET http://spring:5002/get_most_cheap
