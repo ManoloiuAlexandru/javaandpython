@@ -1,5 +1,6 @@
 package src.main.java.com.example.demo.services;
 
+import com.example.demo.dto.BookOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.User;
@@ -32,7 +33,7 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public String buyBook(Book book, String username) {
+    public String buyBooks(List<BookOrder> books, String username) {
         UserDB logged = null;
         for (UserDB userDB : userRepository.findAll()) {
             if (userDB.getName().equals(username)) {
@@ -44,18 +45,20 @@ public class UserServices {
             return "User not found";
         }
 
-        for (BookDB bookStore : bookRepository.findAll()) {
-            if (book.getTitle().equals(bookStore.getTitle())) {
-                logged.getBooks().add(bookStore);
-                bookStore.setSold(bookStore.getSold() + 1);
-                userRepository.save(logged);
-                return "Success";
+        for (BookOrder bookToBuy : books) {
+            for (BookDB bookStore : bookRepository.findAll()) {
+                if (bookToBuy.getBookId().equals(bookStore.getId())) {
+                    logged.getBooks().add(bookStore);
+                    bookStore.setSold(bookStore.getSold() + bookToBuy.getQuantity());
+                    userRepository.save(logged);
+                    return "Success";
+                }
             }
         }
         return "Book not found";
     }
 
-    public UserDB getUser(String name){
+    public UserDB getUser(String name) {
         return userRepository.getByName(name);
     }
 }

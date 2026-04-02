@@ -1,5 +1,6 @@
 package src.main.java.com.example.demo.controllers;
 
+import com.example.demo.request.BuyBooksRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +28,9 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/buy_book")
-    public String buyBook(@RequestBody BuyBookRequest request) {
-        return userService.buyBook(request.getBook(), request.getUsername());
+    @PostMapping("/buy_books")
+    public String buyBook(@RequestBody BuyBooksRequest request) {
+        return userService.buyBooks(request.getBooks(), request.getUsername());
     }
 
     @GetMapping("/get_user")
