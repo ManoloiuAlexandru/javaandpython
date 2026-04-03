@@ -36,18 +36,26 @@ public class OrderService {
 
     public String createOrder(Order order) {
         if (userRepository.getByName(order.getUsername()) != null) {
+            boolean hasBook = false;
             OrderDB orderDB = new OrderDB();
             orderDB.setTotal(order.getTotal());
             orderDB.setUserDB(userRepository.getByName(order.getUsername()));
             for (BookOrder bookOrder : order.getBooks()) {
-                BookOrderDB bookOrderDB = new BookOrderDB();
-                bookOrderDB.setBookId(bookOrder.getBookId());
-                bookOrderDB.setQuantity(bookOrder.getQuantity());
-                orderDB.getItems().add(bookOrderDB);
-                orderDB.setStatus("Unpaid");
+                if (bookRepository.existsById(bookOrder.getBookId())) {
+                    BookOrderDB bookOrderDB = new BookOrderDB();
+                    bookOrderDB.setBookId(bookOrder.getBookId());
+                    bookOrderDB.setQuantity(bookOrder.getQuantity());
+                    orderDB.getItems().add(bookOrderDB);
+                    orderDB.setStatus("Unpaid");
+                    hasBook = true;
+                }
             }
-            orderRepository.save(orderDB);
-            return "Success";
+            if (hasBook) {
+                orderRepository.save(orderDB);
+                return "Success";
+            } else {
+                return "Wrong Order";
+            }
         }
         return "Error user not found";
     }
@@ -79,6 +87,8 @@ public class OrderService {
         }
         if (logged == null) {
             return "User not found";
+        } else if (orderRepository.findById(orderId).get().getStatus().equals("Paid")) {
+            return "Order paid";
         } else if (validateCard(orderId, cardId, username)) {
             for (BookOrderDB bookToBuy : orderRepository.findById(orderId).get().getItems()) {
                 for (BookDB bookStore : bookRepository.findAll()) {
@@ -86,11 +96,10 @@ public class OrderService {
                         logged.getBooks().add(bookStore);
                         bookStore.setSold(bookStore.getSold() + bookToBuy.getQuantity());
                         userRepository.save(logged);
-                        return "Success";
                     }
                 }
             }
-            return "Book not found";
+            return "Success";
         }
         return "Error";
     }

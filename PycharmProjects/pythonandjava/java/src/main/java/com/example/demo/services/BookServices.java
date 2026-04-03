@@ -26,6 +26,7 @@ public class BookServices {
         bookDB.setGenre(book.getGenre());
         bookDB.setPrice(book.getPrice());
         bookDB.setSold(book.getSold());
+        bookDB.setTypeOfBook(book.getTypeOfBook());
         bookRepository.save(bookDB);
         return "Book added";
     }

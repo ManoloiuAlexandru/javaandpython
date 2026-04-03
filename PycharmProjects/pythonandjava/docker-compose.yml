@@ -28,17 +28,21 @@ services:
     depends_on:
       javanadpythondb:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:5002/ || exit 1" ]
+      interval: 5s
+      retries: 5
 
-  fastapi:
+  pythontools:
     build: ./python
-    container_name: fastapi
+    container_name: pythontools
     depends_on:
       javanadpythondb:
         condition: service_healthy
+      spring:
+        condition: service_healthy
     ports:
       - "5001:5001"
-    environment:
-      DATABASE_URL: postgresql://user:password@db:5432/mydb
 
   debug:
     image: alpine:latest

@@ -34,4 +34,7 @@ public class BookDB {
     @Column(nullable = false)
     private int sold;
 
+    @Column(nullable = false)
+    private String typeOfBook;
+
 }

@@ -1,7 +1,3 @@
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "alex", "password": "secret"}'
-
 curl -X POST http://spring:5002/add_library \
 -H "Content-Type: application/json" \
 -d '[
