@@ -36,7 +36,6 @@ public class OrderService {
 
     public String createOrder(Order order) {
         if (userRepository.getByName(order.getUsername()) != null) {
-//            List<BookOrderDB> items = new ArrayList<>();
             OrderDB orderDB = new OrderDB();
             orderDB.setTotal(order.getTotal());
             orderDB.setUserDB(userRepository.getByName(order.getUsername()));
@@ -44,10 +43,9 @@ public class OrderService {
                 BookOrderDB bookOrderDB = new BookOrderDB();
                 bookOrderDB.setBookId(bookOrder.getBookId());
                 bookOrderDB.setQuantity(bookOrder.getQuantity());
-
                 orderDB.getItems().add(bookOrderDB);
+                orderDB.setStatus("Unpaid");
             }
-            System.out.println("Cartoful");
             orderRepository.save(orderDB);
             return "Success";
         }
@@ -55,13 +53,18 @@ public class OrderService {
     }
 
     public Boolean validateCard(Long orderId, Long cardId, String username) {
-        Double total = orderRepository.findById(orderId).get().getTotal();
+        OrderDB orderDB = orderRepository.findById(orderId).get();
+        Double total = orderDB.getTotal();
         BankAccountDB bankAccount = cardRepository.findById(cardId).get().getBankAccount();
         if (bankAccount.getAmount() >= total &&
                 userRepository.getByName(username).getBankAccounts().contains(bankAccount)) {
             bankAccount.setAmount(bankAccount.getAmount() - total);
+            orderDB.setStatus("Paid");
+            orderRepository.save(orderDB);
             return true;
         }
+        orderDB.setStatus("Rejected");
+        orderRepository.save(orderDB);
         return false;
 
     }

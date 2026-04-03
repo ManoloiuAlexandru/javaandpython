@@ -21,6 +21,9 @@ public class OrderDB {
     @Column
     private Double total;
 
+    @Column
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "user_order_id")
     private UserDB userDB;
