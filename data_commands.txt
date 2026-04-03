@@ -98,180 +98,90 @@ curl -X POST http://spring:5002/add_library \
 ]'
 
 
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "alex",
-  "books": [
-    {
-      "bookId": 1,
-      "quantity": 2
-    }
-  ]
-}'
-curl -X POST "http://spring:5002/find_book?title=Clean%20Code"
+# Add users
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "darius", "password": "darius123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "vlad", "password": "vlad123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "andrei", "password": "andrei123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "alex", "password": "alex123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "rares", "password": "rares123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "alexandra", "password": "alexandra123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "mihai-alexandru", "password": "mihai123"}'
+curl -X POST http://spring:5002/add_user -H "Content-Type: application/json" -d '{"name": "armin", "password": "armin123"}'
+
+# Alex
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789012","amount":1500.50,"bankName":"BCR","accountLimit":1000.00},"token":"alex"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123456","type":"debit","name":"alex","cvv":123},"token":"RO49AAAA1234123456789012"}'
+
+# Darius
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789013","amount":1200.00,"bankName":"BCR","accountLimit":800.00},"token":"darius"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123457","type":"debit","name":"darius","cvv":234},"token":"RO49AAAA1234123456789013"}'
+
+# Vlad
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789014","amount":1300.00,"bankName":"BCR","accountLimit":900.00},"token":"vlad"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123458","type":"debit","name":"vlad","cvv":345},"token":"RO49AAAA1234123456789014"}'
+
+# Andrei
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789015","amount":1400.00,"bankName":"BCR","accountLimit":950.00},"token":"andrei"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123459","type":"debit","name":"andrei","cvv":456},"token":"RO49AAAA1234123456789015"}'
+
+# Rares
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789016","amount":1100.00,"bankName":"BCR","accountLimit":700.00},"token":"rares"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123460","type":"debit","name":"rares","cvv":567},"token":"RO49AAAA1234123456789016"}'
+
+# Alexandra
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789017","amount":1250.00,"bankName":"BCR","accountLimit":850.00},"token":"alexandra"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123461","type":"debit","name":"alexandra","cvv":678},"token":"RO49AAAA1234123456789017"}'
+
+# Mihai-Alexandru
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789018","amount":1350.00,"bankName":"BCR","accountLimit":900.00},"token":"mihai-alexandru"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123462","type":"debit","name":"mihai-alexandru","cvv":789},"token":"RO49AAAA1234123456789018"}'
+
+# Armin
+curl -X POST http://spring:5002/add_bank_account -H "Content-Type: application/json" -d '{"bankAccount":{"iban":"RO49AAAA1234123456789019","amount":1450.00,"bankName":"BCR","accountLimit":950.00},"token":"armin"}'
+curl -X POST http://spring:5002/add_card -H "Content-Type: application/json" -d '{"card":{"cardNumber":"1234567890123463","type":"debit","name":"armin","cvv":890},"token":"RO49AAAA1234123456789019"}'
 
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "darius", "password": "darius123"}'
+# Alex buys Clean Code
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "alex","total": 120.0,"books":[{"bookId": 1,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "alex","orderId": 1,"cardId": 1}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "vlad", "password": "vlad123"}'
+# Alex buys You Don’t Know JS
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "alex","total": 80.0,"books":[{"bookId": 9,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "alex","orderId": 2,"cardId": 1}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "andrei", "password": "andrei123"}'
+# Darius buys Atomic Habits
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "darius","total": 90.0,"books":[{"bookId": 2,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "darius","orderId": 3,"cardId": 2}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "alex", "password": "alex123"}'
+# Darius buys Introduction to Algorithms
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "darius","total": 150.0,"books":[{"bookId": 10,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "darius","orderId": 4,"cardId": 2}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "rares", "password": "rares123"}'
+# Vlad buys Sapiens
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "vlad","total": 100.0,"books":[{"bookId": 3,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "vlad","orderId": 5,"cardId": 3}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "alexandra", "password": "alexandra123"}'
+# Andrei buys The Pragmatic Programmer
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "andrei","total": 110.0,"books":[{"bookId": 4,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "andrei","orderId": 6,"cardId": 4}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "mihai-alexandru", "password": "mihai123"}'
+# Alexandra buys Deep Work
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "alexandra","total": 95.0,"books":[{"bookId": 5,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "alexandra","orderId": 7,"cardId": 5}'
 
-curl -X POST http://spring:5002/add_user \
--H "Content-Type: application/json" \
--d '{"name": "armin", "password": "armin123"}'
+# Rares buys Design Patterns
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "rares","total": 120.0,"books":[{"bookId": 6,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "rares","orderId": 8,"cardId": 6}'
 
+# Mihai-Alexandru buys Effective Java
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "mihai-alexandru","total": 130.0,"books":[{"bookId": 7,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "mihai-alexandru","orderId": 9,"cardId": 7}'
 
-# alex buys Clean Code
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "alex",
-  "books": [
-    { "bookId": 1, "quantity": 1 }
-  ]
-}'
-
-# darius buys Atomic Habits
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "darius",
-  "books": [
-    { "bookId": 2, "quantity": 1 }
-  ]
-}'
-
-# vlad buys Sapiens
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "vlad",
-  "books": [
-    { "bookId": 3, "quantity": 1 }
-  ]
-}'
-
-# andrei buys The Pragmatic Programmer
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "andrei",
-  "books": [
-    { "bookId": 4, "quantity": 1 }
-  ]
-}'
-
-# alexandra buys Deep Work
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "alexandra",
-  "books": [
-    { "bookId": 5, "quantity": 1 }
-  ]
-}'
-
-# rares buys Design Patterns
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "rares",
-  "books": [
-    { "bookId": 6, "quantity": 1 }
-  ]
-}'
-
-# mihai-alexandru buys Effective Java
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "mihai-alexandru",
-  "books": [
-    { "bookId": 7, "quantity": 1 }
-  ]
-}'
-
-# armin buys The Lean Startup
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "armin",
-  "books": [
-    { "bookId": 8, "quantity": 1 }
-  ]
-}'
-
-# alex buys You Don’t Know JS
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "alex",
-  "books": [
-    { "bookId": 9, "quantity": 1 }
-  ]
-}'
-
-# darius buys Introduction to Algorithms
-curl -X POST http://spring:5002/buy_books \
--H "Content-Type: application/json" \
--d '{
-  "username": "darius",
-  "books": [
-    { "bookId": 10, "quantity": 1 }
-  ]
-}'
-
-# add bank account
-curl -X POST http://spring:5002/add_bank_account \
--H "Content-Type: application/json" \
--d '{
-  "bankAccount": {
-    "iban": "RO49AAAA1234123456789012",
-    "amount": 1500.50,
-    "bankName": "BCR",
-    "accountLimit": 1000.00
-  },
-  "token": "alex"
-}'
-
-# add card
-curl -X POST http://spring:5002/add_card \
--H "Content-Type: application/json" \
--d '{
-  "card": {
-    "cardNumber": "1234567890123456",
-    "type": "debit",
-    "name": "alex",
-    "cvv": 123
-  },
-  "token": "RO49AAAA1234123456789012"
-}'
-
+# Armin buys The Lean Startup
+curl -X POST http://spring:5002/create_order -H "Content-Type: application/json" -d '{"username": "armin","total": 85.0,"books":[{"bookId": 8,"quantity": 1}]}'
+curl -X POST http://spring:5002/pay -H "Content-Type: application/json" -d '{"username": "armin","orderId": 10,"cardId": 8}'
 curl -X GET http://spring:5002/users
+
 
 curl -X GET http://spring:5002/books
 curl -X GET http://spring:5002/get_most_expensive
