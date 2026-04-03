@@ -1,12 +1,12 @@
-package com.example.demo.request;
+package com.example.demo.dto;
 
-import com.example.demo.dto.BookOrder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class BuyBooksRequest {
+public class Order {
     private List<BookOrder> books;
     private String username;
+    private Double total;
 }

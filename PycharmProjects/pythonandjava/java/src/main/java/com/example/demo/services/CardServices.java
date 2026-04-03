@@ -22,6 +22,7 @@ public class CardServices {
                 cardDB.setCvv(card.getCvv());
                 cardDB.setType(card.getType());
                 cardDB.setName(card.getName());
+                cardDB.setBankAccount(bankAccountDB);
                 bankAccountDB.getCardDB().add(cardDB);
                 bankAccountRepository.save(bankAccountDB);
             }

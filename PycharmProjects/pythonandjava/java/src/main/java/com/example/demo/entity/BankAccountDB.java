@@ -1,5 +1,6 @@
 package src.main.java.com.example.demo.classes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import src.main.java.com.example.demo.classes.CardDB;
 import lombok.Data;
@@ -17,16 +18,17 @@ public class BankAccountDB {
     @Column(unique = true, nullable = false)
     private String iban;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Double amount;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String bankName;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Double accountLimit;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="card_number_account")
+    @JsonBackReference
     private List<CardDB> cardDB;
 }

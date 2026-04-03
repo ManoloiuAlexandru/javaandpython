@@ -1,6 +1,7 @@
 package src.main.java.com.example.demo.controllers;
 
 import com.example.demo.request.CardRequest;
+import com.example.demo.request.PaymentRequest;
 import src.main.java.com.example.demo.services.CardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,5 @@ public class CardController {
     public String buyBook(@RequestBody CardRequest cardRequest) {
         return cardServices.addCard(cardRequest.getCard(), cardRequest.getToken());
     }
-
 
 }

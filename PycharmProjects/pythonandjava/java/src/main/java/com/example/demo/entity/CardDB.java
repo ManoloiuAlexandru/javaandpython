@@ -1,5 +1,7 @@
 package src.main.java.com.example.demo.classes;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.ToString;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,6 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "cards")
+@ToString(exclude = "bankAccount")
 public class CardDB {
 
     @Id
@@ -27,6 +30,7 @@ public class CardDB {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bank_account")
+    @JsonBackReference
     private BankAccountDB bankAccount;
 
 }

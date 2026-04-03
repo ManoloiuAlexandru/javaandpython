@@ -33,31 +33,6 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public String buyBooks(List<BookOrder> books, String username) {
-        UserDB logged = null;
-        for (UserDB userDB : userRepository.findAll()) {
-            if (userDB.getName().equals(username)) {
-                logged = userDB;
-                break;
-            }
-        }
-        if (logged == null) {
-            return "User not found";
-        }
-
-        for (BookOrder bookToBuy : books) {
-            for (BookDB bookStore : bookRepository.findAll()) {
-                if (bookToBuy.getBookId().equals(bookStore.getId())) {
-                    logged.getBooks().add(bookStore);
-                    bookStore.setSold(bookStore.getSold() + bookToBuy.getQuantity());
-                    userRepository.save(logged);
-                    return "Success";
-                }
-            }
-        }
-        return "Book not found";
-    }
-
     public UserDB getUser(String name) {
         return userRepository.getByName(name);
     }
