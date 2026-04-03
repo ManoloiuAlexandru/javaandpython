@@ -1,0 +1,160 @@
+# Bookstore Backend – Documentation
+
+## Overview
+
+This application is a Java Spring Boot backend that simulates a bookstore system with a complete purchase flow, including:
+
+* Book management
+* User management
+* Order creation
+* Payment processing via cards and bank accounts
+
+The system follows a layered architecture:
+
+* Controller layer (API endpoints)
+* Service layer (business logic)
+* Repository layer (database access)
+
+---
+
+## Core Entities
+
+### User
+
+* `id`
+* `username`
+* `password`
+* `books` (owned books)
+* `bankaccounts`
+
+---
+
+### Book
+
+* `id`
+* `title`
+* `author`
+* 'year'
+* 'pages'
+* 'genre'
+* `price`
+* `sold`
+* 'typeOfBook'
+
+---
+
+### BankAccount
+
+* `id`
+* `iban`
+* `amount`
+* 'bankName'
+* `accountLimit`
+* 'cards'
+---
+
+### Card
+
+* `id`
+* `cardNumber`
+* `type` (DEBIT / CREDIT)
+* 'cvv'
+* 'name'
+* `bankAccount`
+
+---
+
+### Order
+
+* `id`
+* `username`
+* `items` (bookId + quantity)
+* `total`
+* `status` (PENDING, PAID, REJECTED)
+* `failureReason` (feature)
+
+### Book Order
+
+* 'id'
+* 'bookId'
+* 'quantity'
+
+---
+
+## Purchase Flow
+
+### Step 1: Create Order
+
+The user submits:
+
+* a list of books (id and quantity)
+* username
+
+The system:
+
+* validates that all books exist
+* validates quantities (future)
+* calculates the total price (future)
+* creates an order with status `PENDING`
+
+---
+
+### Step 2: Pay Order
+
+The user submits:
+
+* orderId
+* cardId
+* username
+
+The system:
+
+* validates that the order belongs to the user (future)
+* validates that the card belongs to the user (future)
+* checks available funds or credit limit 
+* processes the payment
+
+---
+
+### Step 3: On Successful Payment
+ 
+* Deducts money from the bank account
+* Updates order status to `PAID`
+* Adds purchased books to the user
+* Increments the `sold` count for each book
+
+---
+
+### Step 4: On Failed Payment
+
+* Updates order status to `REJECTED`
+* Stores a failure reason (e.g., `INSUFFICIENT_FUNDS`) (future)
+
+---
+
+## Validation Rules
+
+* All referenced books must exist (need more testing)
+* Quantities must be positive (need to test)
+* Total price is recalculated on the server (need to do)
+* The order must belong to the requesting user (need to do)
+* The card must belong to the user (need to do)
+
+---
+
+## Technical Features
+
+* Spring Boot with Hibernate (JPA)
+* REST API with Swagger integration
+* Concurrency protection for payments
+* Transaction-safe processing (recommended using `@Transactional`) (need to do)
+
+---
+
+## Future Improvements
+
+* Authentication and authorization (e.g., JWT)
+* Inventory stock management
+* Payment logging and audit trail
+* Idempotent payment handling
+* Service decomposition (User, Orders, Payments)
