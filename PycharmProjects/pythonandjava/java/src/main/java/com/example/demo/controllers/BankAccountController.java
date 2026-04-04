@@ -3,11 +3,15 @@ package src.main.java.com.example.demo.controllers;
 import com.example.demo.request.BankAccountRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
 import src.main.java.com.example.demo.services.BankAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import src.main.java.com.example.demo.classes.BankAccountDB;
+
+import java.util.List;
 
 @RestController
 @Tag(name = "Bank Accounts", description = "Operations related to bank accounts")
@@ -22,5 +26,10 @@ public class BankAccountController {
         return bankAccountService.addBankAccount(bankAccountRequest.getBankAccount(), bankAccountRequest.getToken());
     }
 
-
+    @GetMapping("/all_bank_accounts")
+    @Operation(summary = "Get all bank accounts")
+    public List<BankAccountDB> getBankAccount()
+    {
+        return bankAccountService.getAllAccounts();
+    }
 }

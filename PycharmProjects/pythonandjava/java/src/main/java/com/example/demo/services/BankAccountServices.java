@@ -1,16 +1,24 @@
 package src.main.java.com.example.demo.services;
 
+import com.example.demo.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import src.main.java.com.example.demo.classes.BankAccountDB;
 import src.main.java.com.example.demo.classes.UserDB;
 import com.example.demo.dto.BankAccount;
+import src.main.java.com.example.demo.repository.UserRepository;
+import src.main.java.com.example.demo.repository.BankAccountRepository;
+
+import java.util.List;
 
 @Service
 public class BankAccountServices {
 
     @Autowired
-    private src.main.java.com.example.demo.repository.UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private BankAccountRepository bankAccountRepository;
 
     public String addBankAccount(BankAccount bankAccount, String token) {
         BankAccountDB bankAccountDB = new BankAccountDB();
@@ -25,5 +33,9 @@ public class BankAccountServices {
             }
         }
         return "Success";
+    }
+
+    public List<BankAccountDB> getAllAccounts() {
+        return bankAccountRepository.findAll();
     }
 }

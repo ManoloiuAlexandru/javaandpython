@@ -104,4 +104,12 @@ public class OrderService {
         return "Error";
     }
 
+    public List<OrderDB> getAllOrders(){
+        return orderRepository.findAll();
+    }
+
+    public OrderDB getOrder(Long orderId)
+    {
+        return orderRepository.findById(orderId).get();
+    }
 }

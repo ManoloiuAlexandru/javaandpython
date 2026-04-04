@@ -32,21 +32,25 @@ public class UserController {
     }
 
     @GetMapping("/users")
+    @Operation(summary = "Get all users")
     public List<UserDB> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("/create_order")
+    @Operation(summary = "Create an order")
     public String createNewOrder(@RequestBody Order request) {
         return orderService.createOrder(request);
     }
 
     @PostMapping("pay")
+    @Operation(summary = "Pay an order")
     public String pay(@RequestBody PaymentRequest paymentRequest) {
         return orderService.buyBooks(paymentRequest.getOrderId(), paymentRequest.getCardId(), paymentRequest.getUsername());
     }
 
     @GetMapping("/get_user")
+    @Operation(summary = "Get user using the name")
     public UserDB getUserByName(@RequestParam String name) {
         return userService.getUser(name);
     }
