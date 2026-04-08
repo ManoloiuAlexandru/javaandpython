@@ -1,4 +1,4 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
 import java.util.Map;
 

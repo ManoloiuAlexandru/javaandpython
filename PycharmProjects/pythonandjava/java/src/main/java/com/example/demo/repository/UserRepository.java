@@ -1,7 +1,8 @@
-package src.main.java.com.example.demo.repository;
+package com.example.demo.repository;
 
+import com.example.demo.entity.UserDB;
 import org.springframework.data.jpa.repository.JpaRepository;
-import src.main.java.com.example.demo.classes.UserDB;
+
 
 public interface UserRepository extends JpaRepository<UserDB, Long> {
     UserDB getByName(String name);

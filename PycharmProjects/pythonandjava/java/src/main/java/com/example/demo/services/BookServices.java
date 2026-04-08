@@ -1,10 +1,10 @@
-package src.main.java.com.example.demo.services;
+package com.example.demo.services;
 
-import src.main.java.com.example.demo.classes.BookDB;
+import com.example.demo.entity.BookDB;
+import com.example.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.Book;
-import src.main.java.com.example.demo.repository.BookRepository;
 
 import java.util.Comparator;
 import java.util.HashMap;

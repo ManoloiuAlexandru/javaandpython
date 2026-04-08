@@ -1,8 +1,7 @@
-package src.main.java.com.example.demo.classes;
+package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import src.main.java.com.example.demo.classes.UserDB;
-import src.main.java.com.example.demo.classes.BookOrderDB;
+
 import jakarta.persistence.*;
 import lombok.Data;
 

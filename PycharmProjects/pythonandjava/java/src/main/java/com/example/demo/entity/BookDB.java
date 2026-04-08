@@ -1,6 +1,4 @@
-package src.main.java.com.example.demo.classes;
-
-import src.main.java.com.example.demo.classes.UserDB;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

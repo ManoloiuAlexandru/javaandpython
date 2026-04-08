@@ -1,15 +1,16 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
+import com.example.demo.entity.BankAccountDB;
 import com.example.demo.request.BankAccountRequest;
+import com.example.demo.services.BankAccountServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
-import src.main.java.com.example.demo.services.BankAccountServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import src.main.java.com.example.demo.classes.BankAccountDB;
+
 
 import java.util.List;
 

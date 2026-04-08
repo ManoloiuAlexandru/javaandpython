@@ -1,23 +1,23 @@
-package src.main.java.com.example.demo.services;
+package com.example.demo.services;
 
 import com.example.demo.dto.BookOrder;
 import com.example.demo.dto.Order;
+import com.example.demo.entity.BankAccountDB;
+import com.example.demo.entity.BookOrderDB;
+import com.example.demo.entity.OrderDB;
+import com.example.demo.entity.UserDB;
+import com.example.demo.entity.BookDB;
+import com.example.demo.repository.BookRepository;
+import com.example.demo.repository.CardRepository;
+import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.classes.BookOrderDB;
-import src.main.java.com.example.demo.repository.OrderRepository;
+
 import com.example.demo.dto.BankAccount;
-import src.main.java.com.example.demo.classes.OrderDB;
-import src.main.java.com.example.demo.repository.UserRepository;
-import src.main.java.com.example.demo.classes.UserDB;
-import src.main.java.com.example.demo.classes.BookDB;
-import src.main.java.com.example.demo.repository.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import src.main.java.com.example.demo.repository.CardRepository;
-import src.main.java.com.example.demo.classes.BankAccountDB;
 
 @Service
 public class OrderService {

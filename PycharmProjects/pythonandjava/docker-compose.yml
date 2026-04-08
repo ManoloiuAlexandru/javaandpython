@@ -33,16 +33,16 @@ services:
       interval: 5s
       retries: 5
 
-  pythontools:
-    build: ./python
-    container_name: pythontools
-    depends_on:
-      javanadpythondb:
-        condition: service_healthy
-      spring:
-        condition: service_healthy
-    ports:
-      - "5001:5001"
+#  pythontools:
+#    build: ./python
+#    container_name: pythontools
+#    depends_on:
+#      javanadpythondb:
+#        condition: service_healthy
+#      spring:
+#        condition: service_healthy
+#    ports:
+#      - "5001:5001"
 
 
   frontend:

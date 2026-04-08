@@ -1,7 +1,6 @@
-package src.main.java.com.example.demo.classes;
+package com.example.demo.entity;
 
-import src.main.java.com.example.demo.classes.BankAccountDB;
-import src.main.java.com.example.demo.classes.BookDB;
+
 import jakarta.persistence.*;
 import lombok.Data;
 

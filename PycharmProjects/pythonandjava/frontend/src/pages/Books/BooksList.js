@@ -41,6 +41,7 @@ function BooksList() {
               <p><strong>Price:</strong> ${book.price}</p>
               <p><strong>Genre:</strong> {book.genre}</p>
               <p><strong>Sold:</strong> {book.sold}</p>
+              <p><strong>Book Type:</strong>{book.typeOfBook}</p>
             </div>
           ))}
         </div>

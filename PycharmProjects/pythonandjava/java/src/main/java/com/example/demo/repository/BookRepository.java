@@ -1,7 +1,8 @@
-package src.main.java.com.example.demo.repository;
+package com.example.demo.repository;
 
+import com.example.demo.entity.BookDB;
 import org.springframework.data.jpa.repository.JpaRepository;
-import src.main.java.com.example.demo.classes.BookDB;
+
 
 public interface BookRepository extends JpaRepository<BookDB, Long> {
     BookDB findByTitle(String title);

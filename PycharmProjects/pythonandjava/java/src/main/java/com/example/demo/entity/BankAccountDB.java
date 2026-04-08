@@ -1,8 +1,7 @@
-package src.main.java.com.example.demo.classes;
+package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import src.main.java.com.example.demo.classes.CardDB;
 import lombok.Data;
 
 import java.util.List;

@@ -1,13 +1,13 @@
-package src.main.java.com.example.demo.services;
+package com.example.demo.services;
 
 import com.example.demo.dto.User;
+import com.example.demo.entity.BankAccountDB;
+import com.example.demo.entity.UserDB;
+import com.example.demo.repository.BankAccountRepository;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.example.demo.classes.BankAccountDB;
-import src.main.java.com.example.demo.classes.UserDB;
 import com.example.demo.dto.BankAccount;
-import src.main.java.com.example.demo.repository.UserRepository;
-import src.main.java.com.example.demo.repository.BankAccountRepository;
 
 import java.util.List;
 

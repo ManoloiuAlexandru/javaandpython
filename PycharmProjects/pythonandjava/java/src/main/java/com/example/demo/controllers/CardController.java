@@ -1,8 +1,8 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
 import com.example.demo.request.CardRequest;
 import com.example.demo.request.PaymentRequest;
-import src.main.java.com.example.demo.services.CardServices;
+import com.example.demo.services.CardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

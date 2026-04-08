@@ -1,11 +1,12 @@
-package src.main.java.com.example.demo.services;
+package com.example.demo.services;
 
+import com.example.demo.entity.BankAccountDB;
+import com.example.demo.entity.CardDB;
+import com.example.demo.repository.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dto.Card;
-import src.main.java.com.example.demo.classes.BankAccountDB;
-import src.main.java.com.example.demo.repository.BankAccountRepository;
-import src.main.java.com.example.demo.classes.CardDB;
+
 
 @Service
 public class CardServices {

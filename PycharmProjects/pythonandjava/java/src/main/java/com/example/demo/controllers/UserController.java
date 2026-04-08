@@ -1,7 +1,11 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
+import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.Order;
+import com.example.demo.entity.UserDB;
 import com.example.demo.request.PaymentRequest;
+import com.example.demo.services.OrderService;
+import com.example.demo.services.UserServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-import src.main.java.com.example.demo.services.UserServices;
-import src.main.java.com.example.demo.classes.UserDB;
-import src.main.java.com.example.demo.services.OrderService;
 import com.example.demo.dto.User;
 
 @RestController
@@ -53,6 +54,12 @@ public class UserController {
     @Operation(summary = "Get user using the name")
     public UserDB getUserByName(@RequestParam String name) {
         return userService.getUser(name);
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "Login")
+    public String login(@RequestBody LoginRequest loginRequest){
+        return userService.login(loginRequest.getName(),loginRequest.getPassword());
     }
 
 }

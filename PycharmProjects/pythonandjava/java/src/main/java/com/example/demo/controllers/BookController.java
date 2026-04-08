@@ -1,9 +1,9 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
+import com.example.demo.entity.BookDB;
+import com.example.demo.services.BookServices;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.Book;
-import src.main.java.com.example.demo.classes.BookDB;
-import src.main.java.com.example.demo.services.BookServices;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

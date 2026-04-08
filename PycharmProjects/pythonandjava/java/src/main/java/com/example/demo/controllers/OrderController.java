@@ -1,12 +1,13 @@
-package src.main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
 
 import java.util.List;
 import java.util.Map;
 
+import com.example.demo.entity.OrderDB;
+import com.example.demo.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import src.main.java.com.example.demo.classes.OrderDB;
-import src.main.java.com.example.demo.services.OrderService;
+
 
 @RestController
 public class OrderController {
