@@ -5,6 +5,7 @@ import com.example.demo.request.BankAccountRequest;
 import com.example.demo.services.BankAccountServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,13 +24,13 @@ public class BankAccountController {
 
     @PostMapping("/add_bank_account")
     @Operation(summary = "Add a new bank account to the DB")
-    public String buyBook(@RequestBody BankAccountRequest bankAccountRequest) {
-        return bankAccountService.addBankAccount(bankAccountRequest.getBankAccount(), bankAccountRequest.getToken());
+    public String buyBook(@RequestBody BankAccountRequest bankAccountRequest, Authentication authentication) {
+        return bankAccountService.addBankAccount(bankAccountRequest.getBankAccount(),authentication.getName());
     }
 
     @GetMapping("/all_bank_accounts")
     @Operation(summary = "Get all bank accounts")
-    public List<BankAccountDB> getBankAccount()
+    public List<BankAccountDB> getBankAccount(Authentication authentication)
     {
         return bankAccountService.getAllAccounts();
     }

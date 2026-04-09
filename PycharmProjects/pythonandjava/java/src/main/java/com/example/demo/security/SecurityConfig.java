@@ -9,6 +9,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.Locale;
+
 @Configuration
 public class SecurityConfig {
 
@@ -33,7 +35,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/login",
-                                "/"
+                                "/",
+                                "/book/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

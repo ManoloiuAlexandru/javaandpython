@@ -20,18 +20,15 @@ public class BankAccountServices {
     @Autowired
     private BankAccountRepository bankAccountRepository;
 
-    public String addBankAccount(BankAccount bankAccount, String token) {
+    public String addBankAccount(BankAccount bankAccount, String user) {
         BankAccountDB bankAccountDB = new BankAccountDB();
         bankAccountDB.setBankName(bankAccount.getBankName());
         bankAccountDB.setIban(bankAccount.getIban());
         bankAccountDB.setAmount(bankAccount.getAmount());
         bankAccountDB.setAccountLimit(bankAccount.getAccountLimit());
-        for (UserDB user : userRepository.findAll()) {
-            if (user.getName().equals(token)) {
-                user.getBankAccounts().add(bankAccountDB);
-                userRepository.save(user);
-            }
-        }
+        UserDB userDB = userRepository.getByName(user);
+        userDB.getBankAccounts().add(bankAccountDB);
+        userRepository.save(userDB);
         return "Success";
     }
 

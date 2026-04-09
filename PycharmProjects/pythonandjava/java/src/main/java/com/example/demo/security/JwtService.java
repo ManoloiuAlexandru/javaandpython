@@ -18,10 +18,6 @@ public class JwtService {
     // (kept in-memory for now)
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public JwtService() {
-        System.out.println("✅ JwtService bean created");
-    }
-
     public String generateToken(String username) {
 
         return Jwts.builder()

@@ -1,4 +1,4 @@
-curl -X POST http://spring:5002/add_library \
+curl -X POST http://spring:5002/book/add_library \
 -H "Content-Type: application/json" \
 -d '[
   {"title":"Clean Code","author":"Robert C. Martin","year":2008,"pages":464,"genre":"Programming","price":34.99,"sold":500000,"typeOfBook":"physical"},
