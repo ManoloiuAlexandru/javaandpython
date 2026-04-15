@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const API_URL = "http://localhost:5002";
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -20,10 +22,17 @@ function Signup() {
       });
 
       const data = await res.json();
-      setMessage(data.message || "User created!");
 
-      setName("");
-      setPassword("");
+      if (res.ok) {
+        setMessage("User created! Redirecting to login...");
+        setName("");
+        setPassword("");
+
+        // ✅ Redirect after success
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        setMessage(data.message || "Signup failed.");
+      }
     } catch (err) {
       console.error("Signup ERROR:", err);
       setMessage("Signup failed.");
@@ -68,44 +77,44 @@ function Signup() {
   };
 
   return (
-    <div style={containerStyle}>
-      <form onSubmit={handleSubmit} style={cardStyle}>
-        <h2 style={{ textAlign: "center" }}>📚 Create Account</h2>
+      <div style={containerStyle}>
+        <form onSubmit={handleSubmit} style={cardStyle}>
+          <h2 style={{ textAlign: "center" }}>📚 Create Account</h2>
 
-        <input
-          type="text"
-          placeholder="Username"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={inputStyle}
-          required
-        />
+          <input
+              type="text"
+              placeholder="Username"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={inputStyle}
+              required
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={inputStyle}
-          required
-        />
+          <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={inputStyle}
+              required
+          />
 
-        <button
-          type="submit"
-          style={buttonStyle}
-          onMouseEnter={e => e.currentTarget.style.background = "#45a049"}
-          onMouseLeave={e => e.currentTarget.style.background = "#4CAF50"}
-        >
-          Sign Up
-        </button>
+          <button
+              type="submit"
+              style={buttonStyle}
+              onMouseEnter={e => e.currentTarget.style.background = "#45a049"}
+              onMouseLeave={e => e.currentTarget.style.background = "#4CAF50"}
+          >
+            Sign Up
+          </button>
 
-        {message && (
-          <p style={{ textAlign: "center", marginTop: "10px" }}>
-            {message}
-          </p>
-        )}
-      </form>
-    </div>
+          {message && (
+              <p style={{ textAlign: "center", marginTop: "10px" }}>
+                {message}
+              </p>
+          )}
+        </form>
+      </div>
   );
 }
 

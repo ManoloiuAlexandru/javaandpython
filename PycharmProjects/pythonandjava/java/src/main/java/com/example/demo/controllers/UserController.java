@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.Order;
+import com.example.demo.dto.TokenResponse;
 import com.example.demo.entity.UserDB;
 import com.example.demo.request.PaymentRequest;
 import com.example.demo.services.OrderService;
@@ -58,7 +59,7 @@ public class UserController {
 
     @PostMapping("/login")
     @Operation(summary = "Login")
-    public String login(@RequestBody LoginRequest loginRequest){
+    public TokenResponse login(@RequestBody LoginRequest loginRequest){
         return userService.login(loginRequest.getName(),loginRequest.getPassword());
     }
 

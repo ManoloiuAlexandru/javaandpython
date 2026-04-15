@@ -7,6 +7,7 @@ import AddBook from "./pages/Books/AddBook";
 import AddLibrary from "./pages/Books/AddLibrary";
 import BookStats from "./pages/Books/BookStats";
 import Signup from "./pages/Signup";
+import Login from "./pages/Books/Login";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/books/add-library" element={<AddLibrary />} />
         <Route path="/books/stats" element={<BookStats />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </Router>
   );

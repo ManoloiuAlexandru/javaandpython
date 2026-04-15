@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.dto.BookOrder;
-import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.*;
 import com.example.demo.entity.UserDB;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.UserRepository;
@@ -9,8 +8,6 @@ import com.example.demo.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.demo.dto.User;
-import com.example.demo.dto.Book;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class UserServices {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private  JwtService jwtService;
+    private JwtService jwtService;
 
     public String addUser(User user) {
         UserDB userDB = new UserDB();
@@ -45,11 +42,17 @@ public class UserServices {
         return userRepository.getByName(name);
     }
 
-    public String login(String name, String password) {
+    public TokenResponse login(String name, String password) {
         UserDB userDB = userRepository.getByName(name);
-        if (!passwordEncoder.matches(password, userDB.getPassword())) {
-            return "Wrong password";
+        TokenResponse tokenResponse = new TokenResponse();
+        if (userDB==null || !passwordEncoder.matches(password, userDB.getPassword())) {
+            tokenResponse.setToken(null);
+            tokenResponse.setMessage("Wrong credentials");
+
+        } else {
+            tokenResponse.setToken(jwtService.generateToken(name));
+            tokenResponse.setMessage("Success");
         }
-        return jwtService.generateToken(name);
+        return tokenResponse;
     }
 }
