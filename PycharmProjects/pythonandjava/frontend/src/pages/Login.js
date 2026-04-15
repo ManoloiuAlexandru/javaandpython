@@ -9,32 +9,34 @@ function Login() {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        const user = { name, password };
+    const user = { name, password };
 
-        try {
-            const res = await fetch(`${API_URL}/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(user),
-            });
+    try {
+        const res = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user),
+        });
 
-            const data = await res.json();
+        const data = await res.json();
 
-            if (res.ok) {
-                setMessage("Login successful!");
-                // Example redirect after login
-                setTimeout(() => navigate("/dashboard"), 1000);
-            } else {
-                setMessage(data.message || "Invalid credentials.");
-            }
-        } catch (err) {
-            console.error("Login ERROR:", err);
-            setMessage("Login failed.");
+        if (res.ok && data.token) {
+            // ✅ SAVE TOKEN
+            localStorage.setItem("token", data.token);
+
+            setMessage("Login successful!");
+            setTimeout(() => navigate("/"), 1000);
+        } else {
+            setMessage(data.message || "Invalid credentials.");
         }
-    };
+    } catch (err) {
+        console.error("Login ERROR:", err);
+        setMessage("Login failed.");
+    }
+};
 
     const containerStyle = {
         minHeight: "100vh",

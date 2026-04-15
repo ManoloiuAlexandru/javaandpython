@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 
 function Home() {
+  const token = localStorage.getItem("token");
+  const isLoggedIn = !!token;
+
   const cardStyle = {
     padding: "30px",
     borderRadius: "16px",
@@ -34,6 +37,7 @@ function Home() {
           gap: "20px"
         }}
       >
+        {/* USERS */}
         <Link to="/users" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
@@ -46,6 +50,7 @@ function Home() {
           </div>
         </Link>
 
+        {/* BOOKS */}
         <Link to="/books" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
@@ -58,17 +63,35 @@ function Home() {
           </div>
         </Link>
 
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          <div
-            style={cardStyle}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-          >
-            ➕
-            <h2>Signup</h2>
-            <p>Create a new user account</p>
-          </div>
-        </Link>
+        {/* ONLY IF NOT LOGGED IN */}
+        {!isLoggedIn && (
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <div
+              style={cardStyle}
+              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            >
+              ➕
+              <h2>Signup</h2>
+              <p>Create a new user account</p>
+            </div>
+          </Link>
+        )}
+
+        {/* ONLY IF LOGGED IN */}
+        {isLoggedIn && (
+          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+            <div
+              style={cardStyle}
+              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            >
+              🧠
+              <h2>Dashboard</h2>
+              <p>Your personal space</p>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );
