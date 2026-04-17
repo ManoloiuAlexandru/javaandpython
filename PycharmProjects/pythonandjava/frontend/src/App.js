@@ -8,6 +8,7 @@ import AddLibrary from "./pages/Books/AddLibrary";
 import BookStats from "./pages/Books/BookStats";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Users";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/books/stats" element={<BookStats />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login/>}/>
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
