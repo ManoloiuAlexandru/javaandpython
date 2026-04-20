@@ -28,7 +28,7 @@ function AddBook() {
     };
 
     try {
-      const res = await fetch(`${API_URL}/add_book`, {
+      const res = await fetch(`${API_URL}/book/add_book`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(book),
@@ -90,6 +90,7 @@ function AddBook() {
   };
 
   return (
+
     <div style={containerStyle}>
       <form onSubmit={handleSubmit} style={cardStyle}>
         <h2 style={{ textAlign: "center" }}>📖 Add New Book</h2>

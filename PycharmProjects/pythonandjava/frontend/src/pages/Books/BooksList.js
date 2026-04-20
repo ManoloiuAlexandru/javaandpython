@@ -5,7 +5,7 @@ function BooksList() {
   const API_URL = "http://localhost:5002";
 
   useEffect(() => {
-    fetch(`${API_URL}/books`)
+    fetch(`${API_URL}/book/books`)
       .then(res => res.json())
       .then(data => setBooks(data))
       .catch(err => console.error("BooksList ERROR:", err));

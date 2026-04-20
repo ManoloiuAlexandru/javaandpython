@@ -4,12 +4,25 @@ function Users() {
   const [users, setUsers] = useState([]);
   const API_URL = "http://localhost:5002";
 
-  useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then(res => res.json())
-      .then(data => setUsers(data))
-      .catch(err => console.error("Users ERROR:", err));
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  fetch(`${API_URL}/users`, {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("HTTP " + res.status);
+      }
+      return res.json();
+    })
+    .then(data => setUsers(data))
+    .catch(err => console.error("Users ERROR:", err));
+}, []);
 
   const containerStyle = {
     minHeight: "100vh",

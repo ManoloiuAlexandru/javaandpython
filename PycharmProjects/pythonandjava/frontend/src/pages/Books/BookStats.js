@@ -12,37 +12,37 @@ function BookStats() {
   const [genres, setGenres] = useState({});
 
   useEffect(() => {
-    fetch(`${API_URL}/get_most_expensive`)
+    fetch(`${API_URL}/book/get_most_expensive`)
       .then(res => res.json())
       .then(data => setMostExpensive(data))
       .catch(err => console.error("Most Expensive ERROR:", err));
 
-    fetch(`${API_URL}/get_most_cheap`)
+    fetch(`${API_URL}/book/get_most_cheap`)
       .then(res => res.json())
       .then(data => setMostCheap(data))
       .catch(err => console.error("Most Cheap ERROR:", err));
 
-    fetch(`${API_URL}/get_longest_book`)
+    fetch(`${API_URL}/book/get_longest_book`)
       .then(res => res.json())
       .then(data => setLongestBook(data))
       .catch(err => console.error("Longest ERROR:", err));
 
-    fetch(`${API_URL}/get_oldest`)
+    fetch(`${API_URL}/book/get_oldest`)
       .then(res => res.json())
       .then(data => setOldestBook(data))
       .catch(err => console.error("Oldest ERROR:", err));
 
-    fetch(`${API_URL}/get_newest`)
+    fetch(`${API_URL}/book/get_newest`)
       .then(res => res.json())
       .then(data => setNewestBook(data))
       .catch(err => console.error("Newest ERROR:", err));
 
-    fetch(`${API_URL}/get_most_sold`)
+    fetch(`${API_URL}/book/get_most_sold`)
       .then(res => res.json())
       .then(data => setMostSold(data))
       .catch(err => console.error("Most Sold ERROR:", err));
 
-    fetch(`${API_URL}/get_genres`)
+    fetch(`${API_URL}/book/get_genres`)
       .then(res => res.json())
       .then(data => setGenres(data))
       .catch(err => console.error("Genres ERROR:", err));

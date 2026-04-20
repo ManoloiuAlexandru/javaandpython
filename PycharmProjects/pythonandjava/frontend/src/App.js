@@ -8,7 +8,7 @@ import AddLibrary from "./pages/Books/AddLibrary";
 import BookStats from "./pages/Books/BookStats";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Users";
+import Dashboard from "./pages/Users/Dashboard";
 
 function App() {
   return (

@@ -34,4 +34,11 @@ public class BankAccountController {
     {
         return bankAccountService.getAllAccounts();
     }
+
+    @PostMapping("/get_bank_accounts")
+    @Operation(summary = "Get all the bank accounts of a user")
+    public List<BankAccountDB> getBankAccounts(Authentication authentication)
+    {
+        return bankAccountService.getBankAccounts(authentication.getName());
+    }
 }

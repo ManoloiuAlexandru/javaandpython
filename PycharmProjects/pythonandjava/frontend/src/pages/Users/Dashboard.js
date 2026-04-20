@@ -5,28 +5,64 @@ function Dashboard() {
   const API_URL = "http://localhost:5002";
   const navigate = useNavigate();
 
+  const [bankAccounts, setBankAccounts] = useState([]);
+
   const [iban, setIban] = useState("");
   const [amount, setAmount] = useState("");
   const [bankName, setBankName] = useState("");
   const [accountLimit, setAccountLimit] = useState("");
+
   const [message, setMessage] = useState("");
 
-  // ✅ protect the page
+  // 🔹 Card states
+  const [showCardForm, setShowCardForm] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardType, setCardType] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cvv, setCvv] = useState("");
+
+  const token = localStorage.getItem("token");
+
+  const loadAccounts = async () => {
+    try {
+      const res = await fetch(`${API_URL}/get_bank_accounts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!res.ok) throw new Error("HTTP " + res.status);
+
+      const data = await res.json();
+      setBankAccounts(data);
+    } catch (err) {
+      console.error(err);
+      setBankAccounts([]);
+    }
+  };
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
+      return;
     }
+
+    loadAccounts();
   }, [navigate]);
 
+  // 🔹 Add bank account
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const requestBody = {
       bankAccount: {
-        iban: iban,
+        iban,
         amount: parseFloat(amount),
-        bankName: bankName,
+        bankName,
         accountLimit: parseFloat(accountLimit)
       }
     };
@@ -36,25 +72,66 @@ function Dashboard() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(requestBody)
       });
 
-      const text = await res.text();
-      setMessage(text);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+
+      setMessage("Bank account added");
 
       setIban("");
       setAmount("");
       setBankName("");
       setAccountLimit("");
+
+      await loadAccounts();
     } catch (err) {
-      console.error("ERROR:", err);
+      console.error(err);
       setMessage("Failed to add bank account");
     }
   };
 
-  /* ===== Styles (same pattern as AddBook) ===== */
+  // 🔹 Add card
+  const handleAddCard = async (e) => {
+    e.preventDefault();
+
+    const requestBody = {
+      card: {
+        cardNumber,
+        type: cardType,
+        name: cardName,
+        cvv: parseInt(cvv)
+      },
+      token: selectedAccount
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/add_card`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!res.ok) throw new Error("HTTP " + res.status);
+
+      setMessage("Card added successfully");
+
+      setCardNumber("");
+      setCardType("");
+      setCardName("");
+      setCvv("");
+      setShowCardForm(false);
+
+    } catch (err) {
+      console.error(err);
+      setMessage("Failed to add card");
+    }
+  };
 
   const containerStyle = {
     minHeight: "100vh",
@@ -92,55 +169,139 @@ function Dashboard() {
     cursor: "pointer"
   };
 
+  if (!token) return null;
+
   return (
     <div style={containerStyle}>
-      <form onSubmit={handleSubmit} style={cardStyle}>
+      <div style={cardStyle}>
         <h2 style={{ textAlign: "center" }}>🏦 Dashboard</h2>
 
-        <input
-          style={inputStyle}
-          type="text"
-          placeholder="IBAN"
-          value={iban}
-          onChange={(e) => setIban(e.target.value)}
-          required
-        />
+        {/* 🔹 Bank Accounts List */}
+        {bankAccounts.map((acc, index) => (
+          <div
+            key={index}
+            style={{
+              padding: "15px",
+              borderRadius: "10px",
+              border: "1px solid #ddd",
+              background: "#fafafa"
+            }}
+          >
+            <p><b>IBAN:</b> {acc.iban}</p>
+            <p><b>Bank:</b> {acc.bankName}</p>
+            <p><b>Amount:</b> {acc.amount}</p>
+            <p><b>Limit:</b> {acc.accountLimit}</p>
 
-        <input
-          style={inputStyle}
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        />
+            <button
+              style={{ ...buttonStyle, background: "#2196F3", marginTop: "10px" }}
+              onClick={() => {
+                setSelectedAccount(acc.iban);
+                setShowCardForm(true);
+              }}
+            >
+              Add Card
+            </button>
+          </div>
+        ))}
 
-        <input
-          style={inputStyle}
-          type="text"
-          placeholder="Bank Name"
-          value={bankName}
-          onChange={(e) => setBankName(e.target.value)}
-          required
-        />
+        {/* 🔹 Add Card Form */}
+        {showCardForm && (
+          <form
+            onSubmit={handleAddCard}
+            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+          >
+            <h3>Add Card to {selectedAccount}</h3>
 
-        <input
-          style={inputStyle}
-          type="number"
-          placeholder="Account Limit"
-          value={accountLimit}
-          onChange={(e) => setAccountLimit(e.target.value)}
-          required
-        />
+            <input
+              style={inputStyle}
+              type="text"
+              placeholder="Card Number"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
+              required
+            />
 
-        <button type="submit" style={buttonStyle}>
-          Add Bank Account
-        </button>
+            <input
+              style={inputStyle}
+              type="text"
+              placeholder="Type (VISA / MASTERCARD)"
+              value={cardType}
+              onChange={(e) => setCardType(e.target.value)}
+              required
+            />
 
-        {message && (
-          <p style={{ textAlign: "center" }}>{message}</p>
+            <input
+              style={inputStyle}
+              type="text"
+              placeholder="Name on Card"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+              required
+            />
+
+            <input
+              style={inputStyle}
+              type="number"
+              placeholder="CVV"
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+              required
+            />
+
+            <button type="submit" style={buttonStyle}>
+              Save Card
+            </button>
+          </form>
         )}
-      </form>
+
+        {/* 🔹 Add Bank Account */}
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+        >
+          <input
+            style={inputStyle}
+            type="text"
+            placeholder="IBAN"
+            value={iban}
+            onChange={(e) => setIban(e.target.value)}
+            required
+          />
+
+          <input
+            style={inputStyle}
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+
+          <input
+            style={inputStyle}
+            type="text"
+            placeholder="Bank Name"
+            value={bankName}
+            onChange={(e) => setBankName(e.target.value)}
+            required
+          />
+
+          <input
+            style={inputStyle}
+            type="number"
+            placeholder="Account Limit"
+            value={accountLimit}
+            onChange={(e) => setAccountLimit(e.target.value)}
+            required
+          />
+
+          <button type="submit" style={buttonStyle}>
+            Add Bank Account
+          </button>
+        </form>
+
+        {message && <p style={{ textAlign: "center" }}>{message}</p>}
+      </div>
     </div>
   );
 }
