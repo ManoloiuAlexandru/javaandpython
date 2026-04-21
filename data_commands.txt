@@ -112,3 +112,6 @@ curl -X GET http://spring:5002/get_newest
 curl -X GET http://spring:5002/get_genres
 curl -X GET http://spring:5002/get_most_sold
 
+
+curl -X GET http://spring:5002/get_cards \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpb24iLCJpYXQiOjE3NzY3NTM3MjMsImV4cCI6MTc3Njc1NzMyM30.FCWNlKdBQBb9ElSXdPlfSkI3qQpAdjYvoBDNA3Unpxs"
