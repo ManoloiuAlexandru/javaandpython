@@ -10,6 +10,7 @@ import com.example.demo.services.UserServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +42,8 @@ public class UserController {
 
     @PostMapping("/create_order")
     @Operation(summary = "Create an order")
-    public String createNewOrder(@RequestBody Order request) {
-        return orderService.createOrder(request);
+    public String createNewOrder(@RequestBody Order request, Authentication authentication) {
+        return orderService.createOrder(request,authentication.getName());
     }
 
     @PostMapping("pay")

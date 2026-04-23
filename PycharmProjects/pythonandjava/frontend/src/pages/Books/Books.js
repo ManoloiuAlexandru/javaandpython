@@ -37,8 +37,8 @@ function Books() {
         <Link to="/books/list" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
           >
             📚
             <h2>All Books</h2>
@@ -49,8 +49,8 @@ function Books() {
         <Link to="/books/add" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
           >
             ➕
             <h2>Add Book</h2>
@@ -61,8 +61,8 @@ function Books() {
         <Link to="/books/add-library" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
           >
             📦
             <h2>Add Library</h2>
@@ -73,12 +73,25 @@ function Books() {
         <Link to="/books/stats" style={{ textDecoration: "none" }}>
           <div
             style={cardStyle}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
           >
             📊
             <h2>Statistics</h2>
             <p>View insights and analytics</p>
+          </div>
+        </Link>
+
+        {/* ✅ CART CARD */}
+        <Link to="/cart" style={{ textDecoration: "none" }}>
+          <div
+            style={cardStyle}
+            onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+          >
+            🛒
+            <h2>Cart</h2>
+            <p>Review your selected books</p>
           </div>
         </Link>
       </div>

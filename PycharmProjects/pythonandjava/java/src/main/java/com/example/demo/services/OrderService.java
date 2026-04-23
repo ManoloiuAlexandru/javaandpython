@@ -34,12 +34,12 @@ public class OrderService {
     @Autowired
     private BookRepository bookRepository;
 
-    public String createOrder(Order order) {
-        if (userRepository.getByName(order.getUsername()) != null) {
+    public String createOrder(Order order,String name) {
+        if (userRepository.getByName(name) != null) {
             boolean hasBook = false;
             OrderDB orderDB = new OrderDB();
             orderDB.setTotal(order.getTotal());
-            orderDB.setUserDB(userRepository.getByName(order.getUsername()));
+            orderDB.setUserDB(userRepository.getByName(name));
             for (BookOrder bookOrder : order.getBooks()) {
                 if (bookRepository.existsById(bookOrder.getBookId())) {
                     BookOrderDB bookOrderDB = new BookOrderDB();
