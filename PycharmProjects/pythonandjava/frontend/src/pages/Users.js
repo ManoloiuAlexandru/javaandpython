@@ -6,7 +6,9 @@ function Users() {
 
 useEffect(() => {
   const token = localStorage.getItem("token");
-
+   const handleGoHome = () => {
+     navigate("/");
+   };
   fetch(`${API_URL}/users`, {
     method: "GET",
     headers: {

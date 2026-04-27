@@ -1,46 +1,90 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "../styles/homeStyles";
 
 function Home() {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const isLoggedIn = !!token;
 
-  const cardStyle = {
-    padding: "30px",
-    borderRadius: "16px",
-    background: "#ffffff",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-    textAlign: "center",
-    cursor: "pointer",
-    transition: "0.2s",
-    textDecoration: "none",
-    color: "black"
-  };
-
-  const containerStyle = {
-    minHeight: "100vh",
-    padding: "40px",
-    background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
-    fontFamily: "Arial"
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/"); // 👈 redirect to homepage
   };
 
   return (
-    <div style={containerStyle}>
-      <h1 style={{ marginBottom: "10px" }}>📚 My Personal Library</h1>
-      <p style={{ marginBottom: "30px", color: "#555" }}>
+    <div style={styles.container}>
+      {/* AUTH BUTTONS */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+        {!isLoggedIn && (
+          <>
+            <button
+              style={{
+                padding: "8px 14px",
+                borderRadius: "8px",
+                border: "none",
+                background: "#1976D2",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/login")}
+            >
+              Sign In
+            </button>
+
+            <button
+              style={{
+                padding: "8px 14px",
+                borderRadius: "8px",
+                border: "none",
+                background: "#43A047",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </button>
+          </>
+        )}
+
+        {isLoggedIn && (
+          <button
+            style={{
+              padding: "8px 14px",
+              borderRadius: "8px",
+              border: "none",
+              background: "#e53935",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/");
+            }}
+          >
+            Logout
+          </button>
+        )}
+      </div>
+
+      <h1 style={styles.header}>📚 My Personal Library</h1>
+      <p style={styles.subtitle}>
         Manage your books, users, and collections
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "20px"
-        }}
-      >
+      <div style={styles.grid}>
         {/* USERS */}
         <Link to="/users" style={{ textDecoration: "none" }}>
           <div
-            style={cardStyle}
+            style={styles.card}
             onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
           >
@@ -53,7 +97,7 @@ function Home() {
         {/* BOOKS */}
         <Link to="/books" style={{ textDecoration: "none" }}>
           <div
-            style={cardStyle}
+            style={styles.card}
             onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
             onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
           >
@@ -63,26 +107,11 @@ function Home() {
           </div>
         </Link>
 
-        {/* ONLY IF NOT LOGGED IN */}
-        {!isLoggedIn && (
-          <Link to="/signup" style={{ textDecoration: "none" }}>
-            <div
-              style={cardStyle}
-              onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-              onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-            >
-              ➕
-              <h2>Signup</h2>
-              <p>Create a new user account</p>
-            </div>
-          </Link>
-        )}
-
-        {/* ONLY IF LOGGED IN */}
+        {/* DASHBOARD (ONLY IF LOGGED IN) */}
         {isLoggedIn && (
           <Link to="/dashboard" style={{ textDecoration: "none" }}>
             <div
-              style={cardStyle}
+              style={styles.card}
               onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
               onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
             >

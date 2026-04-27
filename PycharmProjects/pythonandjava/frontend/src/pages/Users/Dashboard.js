@@ -42,6 +42,14 @@ function Dashboard() {
     console.log("MY CARDS:", data);
     setMyCards(data);
   };
+  const handleGoHome = () => {
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   /* ---------------- LOAD BANK ACCOUNTS ---------------- */
   const loadAccounts = async () => {
     const res = await fetch(`${API_URL}/get_bank_accounts`, {
@@ -203,6 +211,36 @@ function Dashboard() {
   /* ---------------- RENDER ---------------- */
   return (
     <div style={styles.container}>
+    {/* TOP BAR */}
+    <div
+      style={{
+        position: "absolute",
+        top: "20px",
+        left: "20px",
+      }}
+    >
+      <button
+        style={{ ...styles.button, background: "#1976D2" }}
+        onClick={handleGoHome}
+      >
+        ⬅ Home
+      </button>
+    </div>
+
+    <div
+      style={{
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+      }}
+    >
+      <button
+        style={{ ...styles.button, background: "#e53935" }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    </div>
       <h1 style={styles.title}>🏦 Dashboard</h1>
 
       <button
