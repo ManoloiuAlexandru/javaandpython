@@ -20,12 +20,14 @@ function Cart() {
     };
 
     try {
+      const token = localStorage.getItem("token");
+
       const res = await fetch("http://localhost:5002/create_order", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
-        credentials: "include", // ✅ REQUIRED for Spring Security session
         body: JSON.stringify(order)
       });
 

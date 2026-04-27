@@ -112,4 +112,9 @@ public class OrderService {
     {
         return orderRepository.findById(orderId).get();
     }
+
+    public List<OrderDB> getClientOrders(String name)
+    {
+        return orderRepository.findByUserDB_Name(name);
+    }
 }

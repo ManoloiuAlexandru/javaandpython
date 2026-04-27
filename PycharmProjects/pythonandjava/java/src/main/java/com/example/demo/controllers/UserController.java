@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.Order;
 import com.example.demo.dto.TokenResponse;
+import com.example.demo.entity.BookDB;
 import com.example.demo.entity.UserDB;
 import com.example.demo.request.PaymentRequest;
 import com.example.demo.services.OrderService;
@@ -48,8 +49,8 @@ public class UserController {
 
     @PostMapping("pay")
     @Operation(summary = "Pay an order")
-    public String pay(@RequestBody PaymentRequest paymentRequest) {
-        return orderService.buyBooks(paymentRequest.getOrderId(), paymentRequest.getCardId(), paymentRequest.getUsername());
+    public String pay(@RequestBody PaymentRequest paymentRequest,Authentication authentication) {
+        return orderService.buyBooks(paymentRequest.getOrderId(), paymentRequest.getCardId(), authentication.getName());
     }
 
     @GetMapping("/get_user")
@@ -62,6 +63,13 @@ public class UserController {
     @Operation(summary = "Login")
     public TokenResponse login(@RequestBody LoginRequest loginRequest){
         return userService.login(loginRequest.getName(),loginRequest.getPassword());
+    }
+
+    @GetMapping("/get_my_cards")
+    @Operation(summary = "Get the cards of a user")
+    public List<BookDB> getMyBooks(Authentication authentication)
+    {
+        return userService.getMyBooks(authentication.getName());
     }
 
 }

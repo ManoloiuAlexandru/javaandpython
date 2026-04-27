@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/dashboardStyles"; // adjust path if needed
 
 function Dashboard() {
   const API_URL = "http://localhost:5002";
@@ -7,10 +8,13 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [bankAccounts, setBankAccounts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [cardsByIban, setCardsByIban] = useState({});
   const [openIbans, setOpenIbans] = useState(new Set());
   const [hoveredCard, setHoveredCard] = useState(null);
   const [message, setMessage] = useState("");
+  const [myCards, setMyCards] = useState([]);
+  const [selectedCardPerOrder, setSelectedCardPerOrder] = useState({});
 
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [showCardModal, setShowCardModal] = useState(false);
@@ -26,6 +30,18 @@ function Dashboard() {
   const [cardName, setCardName] = useState("");
   const [cvv, setCvv] = useState("");
 
+  const loadMyCards = async () => {
+    const res = await fetch(`${API_URL}/get_cards_of_user`, {
+      method: "POST", // 👈 IMPORTANT
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    console.log("MY CARDS:", data);
+    setMyCards(data);
+  };
   /* ---------------- LOAD BANK ACCOUNTS ---------------- */
   const loadAccounts = async () => {
     const res = await fetch(`${API_URL}/get_bank_accounts`, {
@@ -38,6 +54,18 @@ function Dashboard() {
     setBankAccounts(await res.json());
   };
 
+  const loadOrders = async () => {
+    const res = await fetch(`${API_URL}/get_client_order`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    console.log("ORDERS:", data);
+    setOrders(data);
+  };
   /* ---------------- LOAD / TOGGLE CARDS ---------------- */
   const loadCardsOfBank = async (iban) => {
     if (openIbans.has(iban)) {
@@ -74,8 +102,37 @@ function Dashboard() {
       return;
     }
     loadAccounts();
+    loadOrders();
+    loadMyCards();
   }, []);
 
+  const handlePay = async (orderId) => {
+    const cardId = selectedCardPerOrder[orderId];
+
+    if (!cardId) {
+      setMessage("❌ Select a card first");
+      return;
+    }
+
+    const res = await fetch(`${API_URL}/pay`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        orderId: orderId,
+        cardId: cardId,
+      }),
+    });
+
+    const text = await res.text();
+    console.log("PAY RESPONSE:", text);
+
+    setMessage(text);
+
+    loadOrders(); // refresh orders after pay
+  };
   /* ---------------- ADD BANK ACCOUNT ---------------- */
   const handleAddAccount = async (e) => {
     e.preventDefault();
@@ -143,83 +200,28 @@ function Dashboard() {
     setCvv("");
   };
 
-  /* ---------------- STYLES ---------------- */
-  const containerStyle = {
-    minHeight: "100vh",
-    padding: "40px",
-    background: "linear-gradient(135deg,#f5f7fa,#c3cfe2)",
-  };
-
-  const cardStyle = {
-    background: "#fff",
-    padding: "18px",
-    borderRadius: "14px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-  };
-
-  const buttonStyle = {
-    padding: "10px",
-    borderRadius: "8px",
-    border: "none",
-    cursor: "pointer",
-    background: "#4CAF50",
-    color: "#fff",
-  };
-
-  const inputStyle = {
-    padding: "10px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-  };
-
-  const overlayStyle = {
-    position: "fixed",
-    inset: 0,
-    background: "rgba(0,0,0,0.4)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1000,
-  };
-
-  const modalStyle = {
-    background: "#fff",
-    padding: "24px",
-    borderRadius: "14px",
-    width: "380px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-  };
-
   /* ---------------- RENDER ---------------- */
   return (
-    <div style={containerStyle}>
-      <h1 style={{ textAlign: "center" }}>🏦 Dashboard</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>🏦 Dashboard</h1>
 
       <button
-        style={{ ...buttonStyle, margin: "20px auto", display: "block" }}
+        style={styles.addAccountButton}
         onClick={() => setShowAccountModal(true)}
       >
         + Add Bank Account
       </button>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill,minmax(330px,1fr))",
-          gap: "20px",
-        }}
-      >
+      <div style={styles.grid}>
         {bankAccounts.map((acc) => (
-          <div key={acc.iban} style={cardStyle}>
+          <div key={acc.iban} style={styles.card}>
             <h3>{acc.bankName}</h3>
             <p><b>IBAN:</b> {acc.iban}</p>
             <p><b>Balance:</b> {acc.amount}</p>
             <p><b>Limit:</b> {acc.accountLimit}</p>
 
             <button
-              style={{ ...buttonStyle, background: "#2196F3", marginBottom: "10px" }}
+              style={{ ...styles.button, ...styles.buttonBlue }}
               onClick={() => loadCardsOfBank(acc.iban)}
             >
               {openIbans.has(acc.iban) ? "Hide Cards" : "View Cards"}
@@ -229,34 +231,14 @@ function Dashboard() {
               (cardsByIban[acc.iban] || []).map((card) => (
                 <div
                   key={card.cardNumber}
-                  style={{
-                    position: "relative",
-                    marginTop: "6px",
-                    padding: "8px",
-                    background: "#f3f3f3",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                  }}
+                  style={styles.cardItem}
                   onMouseEnter={() => setHoveredCard(card.cardNumber)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   💳 {card.type} • {card.name}
 
                   {hoveredCard === card.cardNumber && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: 0,
-                        marginTop: "6px",
-                        background: "#333",
-                        color: "#fff",
-                        padding: "8px",
-                        borderRadius: "8px",
-                        fontSize: "12px",
-                        zIndex: 10,
-                      }}
-                    >
+                    <div style={styles.cardTooltip}>
                       <div><b>Number:</b> {card.cardNumber}</div>
                       <div><b>CVV:</b> {card.cvv}</div>
                     </div>
@@ -265,7 +247,7 @@ function Dashboard() {
               ))}
 
             <button
-              style={{ ...buttonStyle, background: "#673AB7", marginTop: "12px" }}
+              style={{ ...styles.button, ...styles.buttonPurple }}
               onClick={() => {
                 setSelectedIban(acc.iban);
                 setShowCardModal(true);
@@ -276,40 +258,88 @@ function Dashboard() {
           </div>
         ))}
       </div>
+        <div style={{ marginTop: "40px" }}>
+          <h2>🧾 My Orders</h2>
 
-      {message && <p style={{ textAlign: "center", marginTop: "20px" }}>{message}</p>}
+          <div style={styles.grid}>
+            {orders.map((order) => (
+              <div key={order.id} style={styles.card}>
+                <h3>Order #{order.id}</h3>
+
+                <p><b>Status:</b> {order.status}</p>
+                <p><b>Total:</b> {order.total}</p>
+
+                <p><b>Items:</b></p>
+                <ul>
+                  {(order.books || []).map((b, idx) => (
+                    <li key={idx}>
+                      {b.title || "Book"} - {b.price || ""}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* 👇 CARD SELECT */}
+                <select
+                  style={{ ...styles.input, marginTop: "10px" }}
+                  onChange={(e) =>
+                    setSelectedCardPerOrder((prev) => ({
+                      ...prev,
+                      [order.id]: e.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Select card</option>
+                  {myCards.map((card) => (
+                    <option key={card.id} value={card.id}>
+                      {card.name} ({card.type})
+                    </option>
+                  ))}
+                </select>
+
+                {/* 👇 PAY BUTTON */}
+                <button
+                  style={{ ...styles.button, marginTop: "10px", background: "#FF9800" }}
+                  onClick={() => handlePay(order.id)}
+                >
+                  Pay
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      {message && <p style={styles.message}>{message}</p>}
 
       {showAccountModal && (
-        <div style={overlayStyle} onClick={() => setShowAccountModal(false)}>
+        <div style={styles.overlay} onClick={() => setShowAccountModal(false)}>
           <form
-            style={modalStyle}
+            style={styles.modal}
             onClick={(e) => e.stopPropagation()}
             onSubmit={handleAddAccount}
           >
             <h3>Add Bank Account</h3>
-            <input style={inputStyle} placeholder="IBAN" value={iban} onChange={(e) => setIban(e.target.value)} required />
-            <input style={inputStyle} type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-            <input style={inputStyle} placeholder="Bank Name" value={bankName} onChange={(e) => setBankName(e.target.value)} required />
-            <input style={inputStyle} type="number" placeholder="Account Limit" value={accountLimit} onChange={(e) => setAccountLimit(e.target.value)} required />
-            <button style={buttonStyle}>Save</button>
+            <input style={styles.input} placeholder="IBAN" value={iban} onChange={(e) => setIban(e.target.value)} required />
+            <input style={styles.input} type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+            <input style={styles.input} placeholder="Bank Name" value={bankName} onChange={(e) => setBankName(e.target.value)} required />
+            <input style={styles.input} type="number" placeholder="Account Limit" value={accountLimit} onChange={(e) => setAccountLimit(e.target.value)} required />
+            <button style={styles.button}>Save</button>
           </form>
         </div>
       )}
 
       {showCardModal && (
-        <div style={overlayStyle} onClick={() => setShowCardModal(false)}>
+        <div style={styles.overlay} onClick={() => setShowCardModal(false)}>
           <form
-            style={modalStyle}
+            style={styles.modal}
             onClick={(e) => e.stopPropagation()}
             onSubmit={handleAddCard}
           >
             <h3>Add Card</h3>
             <small>IBAN: {selectedIban}</small>
-            <input style={inputStyle} placeholder="Card Number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required />
-            <input style={inputStyle} placeholder="VISA / MASTERCARD" value={cardType} onChange={(e) => setCardType(e.target.value)} required />
-            <input style={inputStyle} placeholder="Name on Card" value={cardName} onChange={(e) => setCardName(e.target.value)} required />
-            <input style={inputStyle} type="number" placeholder="CVV" value={cvv} onChange={(e) => setCvv(e.target.value)} required />
-            <button style={buttonStyle}>Save</button>
+            <input style={styles.input} placeholder="Card Number" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required />
+            <input style={styles.input} placeholder="Credit / Debit" value={cardType} onChange={(e) => setCardType(e.target.value)} required />
+            <input style={styles.input} placeholder="Name on Card" value={cardName} onChange={(e) => setCardName(e.target.value)} required />
+            <input style={styles.input} type="number" placeholder="CVV" value={cvv} onChange={(e) => setCvv(e.target.value)} required />
+            <button style={styles.button}>Save</button>
           </form>
         </div>
       )}

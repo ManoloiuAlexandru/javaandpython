@@ -7,5 +7,4 @@ import lombok.Data;
 public class PaymentRequest {
     private Long cardId;
     private Long orderId;
-    private String username;
 }

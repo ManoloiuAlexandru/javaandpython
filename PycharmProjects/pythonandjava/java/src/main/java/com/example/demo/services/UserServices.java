@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.dto.*;
+import com.example.demo.entity.BookDB;
 import com.example.demo.entity.UserDB;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.UserRepository;
@@ -54,5 +55,10 @@ public class UserServices {
             tokenResponse.setMessage("Success");
         }
         return tokenResponse;
+    }
+
+    public List<BookDB> getMyBooks(String name)
+    {
+        return userRepository.getByName(name).getBooks();
     }
 }

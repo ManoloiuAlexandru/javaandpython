@@ -6,6 +6,7 @@ import java.util.Map;
 import com.example.demo.entity.OrderDB;
 import com.example.demo.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,5 +24,11 @@ public class OrderController {
     @PostMapping("/get_order")
     public OrderDB getOrder(@RequestParam Long orderId) {
         return orderService.getOrder(orderId);
+    }
+
+    @GetMapping("/get_client_order")
+    public List<OrderDB> getClientOrders(Authentication authentication)
+    {
+        return orderService.getClientOrders(authentication.getName());
     }
 }
