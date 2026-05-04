@@ -43,42 +43,50 @@ const handleSubmit = async (e) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
-        fontFamily: "Arial"
+        background: "radial-gradient(circle at top left, rgba(37,99,235,0.28), transparent 34%), linear-gradient(135deg, #0f172a, #1e293b)",
+        fontFamily: "Inter, Arial, sans-serif",
+        padding: "24px"
     };
 
     const cardStyle = {
-        background: "#fff",
-        padding: "40px",
-        borderRadius: "16px",
-        boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-        width: "320px",
+        background: "rgba(255,255,255,0.96)",
+        padding: "42px",
+        borderRadius: "26px",
+        boxShadow: "0 28px 80px rgba(15,23,42,0.35)",
+        width: "min(420px, 100%)",
         display: "flex",
         flexDirection: "column",
-        gap: "15px"
+        gap: "16px",
+        border: "1px solid rgba(255,255,255,0.58)"
     };
 
     const inputStyle = {
-        padding: "10px",
-        borderRadius: "8px",
-        border: "1px solid #ccc",
-        outline: "none"
+        padding: "13px 14px",
+        borderRadius: "14px",
+        border: "1px solid #cbd5e1",
+        outline: "none",
+        background: "#f8fafc"
     };
 
     const buttonStyle = {
-        padding: "10px",
-        borderRadius: "8px",
+        padding: "13px",
+        borderRadius: "14px",
         border: "none",
-        background: "#2196F3",
+        background: "linear-gradient(135deg, #2563eb, #7c3aed)",
         color: "white",
         cursor: "pointer",
-        transition: "0.2s"
+        transition: "0.2s",
+        fontWeight: 700,
+        boxShadow: "0 16px 32px rgba(37,99,235,0.26)"
     };
 
     return (
         <div style={containerStyle}>
             <form onSubmit={handleSubmit} style={cardStyle}>
-                <h2 style={{ textAlign: "center" }}>🔐 Login</h2>
+                <h2 style={{ textAlign: "center", margin: 0, fontSize: "32px", letterSpacing: "-0.04em" }}>🔐 Welcome back</h2>
+                <p style={{ textAlign: "center", color: "#64748b", marginTop: 0 }}>
+                    Sign in to manage your library and orders.
+                </p>
 
                 <input
                     type="text"
@@ -101,10 +109,8 @@ const handleSubmit = async (e) => {
                 <button
                     type="submit"
                     style={buttonStyle}
-                    onMouseEnter={e => e.currentTarget.style.background = "#1976D2"}
-                    onMouseLeave={e => e.currentTarget.style.background = "#2196F3"}
                 >
-                    Login
+                    Sign In
                 </button>
 
                 {message && (

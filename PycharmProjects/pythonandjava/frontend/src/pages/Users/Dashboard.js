@@ -14,6 +14,7 @@ function Dashboard() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [message, setMessage] = useState("");
   const [myCards, setMyCards] = useState([]);
+  const [booksById, setBooksById] = useState({});
   const [selectedCardPerOrder, setSelectedCardPerOrder] = useState({});
 
   const [showAccountModal, setShowAccountModal] = useState(false);
@@ -74,6 +75,25 @@ function Dashboard() {
     console.log("ORDERS:", data);
     setOrders(data);
   };
+
+  const loadBooks = async () => {
+    const res = await fetch(`${API_URL}/book/books`);
+    const data = await res.json();
+    setBooksById(
+      data.reduce((acc, book) => {
+        acc[book.id] = book;
+        return acc;
+      }, {})
+    );
+  };
+
+  const isOrderLocked = (status) => {
+    return ["paid", "rejected"].includes(String(status || "").toLowerCase());
+  };
+
+  const getOrderItems = (order) => {
+    return order.items || order.books || [];
+  };
   /* ---------------- LOAD / TOGGLE CARDS ---------------- */
   const loadCardsOfBank = async (iban) => {
     if (openIbans.has(iban)) {
@@ -112,6 +132,7 @@ function Dashboard() {
     loadAccounts();
     loadOrders();
     loadMyCards();
+    loadBooks();
   }, []);
 
   const handlePay = async (orderId) => {
@@ -139,7 +160,13 @@ function Dashboard() {
 
     setMessage(text);
 
-    loadOrders(); // refresh orders after pay
+    await Promise.all([loadOrders(), loadAccounts(), loadMyCards()]);
+
+    setSelectedCardPerOrder((prev) => {
+      const next = { ...prev };
+      delete next[orderId];
+      return next;
+    });
   };
   /* ---------------- ADD BANK ACCOUNT ---------------- */
   const handleAddAccount = async (e) => {
@@ -300,49 +327,82 @@ function Dashboard() {
           <h2>🧾 My Orders</h2>
 
           <div style={styles.grid}>
-            {orders.map((order) => (
-              <div key={order.id} style={styles.card}>
-                <h3>Order #{order.id}</h3>
+            {orders.map((order) => {
+              const locked = isOrderLocked(order.status);
+              const orderItems = getOrderItems(order);
 
-                <p><b>Status:</b> {order.status}</p>
+              return (
+              <div key={order.id} style={styles.card}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}>
+                  <h3 style={{ margin: 0 }}>Order #{order.id}</h3>
+                  <span
+                    style={{
+                      padding: "6px 10px",
+                      borderRadius: "999px",
+                      background: locked ? "#dcfce7" : "#ffedd5",
+                      color: locked ? "#166534" : "#9a3412",
+                      fontWeight: 700,
+                      fontSize: "13px",
+                    }}
+                  >
+                    {order.status}
+                  </span>
+                </div>
+
                 <p><b>Total:</b> {order.total}</p>
 
                 <p><b>Items:</b></p>
-                <ul>
-                  {(order.books || []).map((b, idx) => (
+                {orderItems.length === 0 ? (
+                  <p style={{ color: "#64748b" }}>No items found for this order.</p>
+                ) : (
+                <ul style={{ paddingLeft: "20px" }}>
+                  {orderItems.map((b, idx) => {
+                    const book = booksById[b.bookId] || b;
+
+                    return (
                     <li key={idx}>
-                      {b.title || "Book"} - {b.price || ""}
+                      {book.title || `Book #${b.bookId || b.id || idx + 1}`}
+                      {b.quantity ? ` × ${b.quantity}` : ""}
+                      {book.price ? ` - ${book.price}` : ""}
                     </li>
-                  ))}
+                  )})}
                 </ul>
+                )}
 
-                {/* 👇 CARD SELECT */}
-                <select
-                  style={{ ...styles.input, marginTop: "10px" }}
-                  onChange={(e) =>
-                    setSelectedCardPerOrder((prev) => ({
-                      ...prev,
-                      [order.id]: e.target.value,
-                    }))
-                  }
-                >
-                  <option value="">Select card</option>
-                  {myCards.map((card) => (
-                    <option key={card.id} value={card.id}>
-                      {card.name} ({card.type})
-                    </option>
-                  ))}
-                </select>
+                {locked ? (
+                  <p style={{ color: "#64748b", fontWeight: 700 }}>
+                    This order is {String(order.status).toLowerCase()}.
+                  </p>
+                ) : (
+                  <>
+                    <select
+                      style={{ ...styles.input, marginTop: "10px", width: "100%" }}
+                      value={selectedCardPerOrder[order.id] || ""}
+                      onChange={(e) =>
+                        setSelectedCardPerOrder((prev) => ({
+                          ...prev,
+                          [order.id]: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Select card</option>
+                      {myCards.map((card) => (
+                        <option key={card.id} value={card.id}>
+                          {card.name} ({card.type})
+                        </option>
+                      ))}
+                    </select>
 
-                {/* 👇 PAY BUTTON */}
-                <button
-                  style={{ ...styles.button, marginTop: "10px", background: "#FF9800" }}
-                  onClick={() => handlePay(order.id)}
-                >
-                  Pay
-                </button>
+                    <button
+                      style={{ ...styles.button, marginTop: "10px", background: "#FF9800" }}
+                      onClick={() => handlePay(order.id)}
+                    >
+                      Pay
+                    </button>
+                  </>
+                )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
       {message && <p style={styles.message}>{message}</p>}
